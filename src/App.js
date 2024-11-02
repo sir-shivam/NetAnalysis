@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/homenew';
+import Results from './components/Resultsnew';
+// import Home from './comp/1stpage';
+// import Results from './comp/Results';
 
-import Cauer1 from './components/Cauer1';
-import Cauer2 from './components/Cauer2';
-import HomePage from './components/Home';
+function App() {
+  const [showResults, setShowResults] = useState(false);
 
-  
-const App = () => {
+  const handleAnalyze = () => {
+    setShowResults(true);
+  };
+
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/result" element={<Cauer2 />} />
-          <Route path="/result2" element={<Cauer1/>} />
-        </Routes>
+      <div className="flex min-h-screen transition-all duration-500">
+        {/* Left section with Home component */}
+        <div
+          className={`bg-gray-100  transition-all duration-500  ${
+            showResults ? 'w-2/5 px-10' : 'w-full'
+          }`}
+        >
+          <Home onAnalyze={handleAnalyze} />
+        </div>
+
+        {/* Right section with dynamic content (Results page) */}
+        {showResults && (
+          <div
+            className="w-3/5 bg-white transition-transform duration-500 transform translate-x-0"
+          >
+            <Routes>
+              <Route path="/" element={<Results />} />
+            </Routes>
+          </div>
+        )}
       </div>
     </Router>
   );
-};
+}
 
 export default App;
-
-
-
-  // export default App;

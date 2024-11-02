@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import PolynomialInput from "./PolynomialInput";
 import PolynomialContext from "../context/PolynomialContext";
 
-const Cauer1 = () => {
+const Cauer1 = ({find1}) => {
   const [numerator, setNumerator] = useState("");
   const [denominator, setDenominator] = useState("");
   const canvasRef  = useRef(null);
@@ -38,8 +38,8 @@ const Cauer1 = () => {
     setResults,
     error,
     setError,
-    finding,
-    setFinding,
+    
+    
   } = useContext(PolynomialContext);
 
   let numC1 = [...numCoeffs].reverse();
@@ -51,7 +51,7 @@ let denC1 = [...denCoeffs].reverse();
   useEffect(() => {
     console.log(numC1, " num in coeer1");
     console.log(denC1, "denominator in couer1");
-    if (finding.circuit == "C1") {
+    if (find1.circuit == "C1") {
       const result = calculateContinuedFraction1(numC1, denC1);
       // canvasCal();
     }
@@ -307,21 +307,21 @@ let denC1 = [...denCoeffs].reverse();
       const isSeriesElement = index % 2 === 0;
       console.log(isSeriesElement, "parallel , series");
      
-      // if(isSeriesElement && finding.component == "LC"){
+      // if(isSeriesElement && find1.component == "LC"){
       //   value = 1 / comp.quotient;
       // }
-      // else if(!isSeriesElement && finding.component == "LC"){
+      // else if(!isSeriesElement && find1.component == "LC"){
       //   value = 1 / comp.quotient;
       // }
 
 
-      if(finding.component == "R"){
+      if(find1.component == "R"){
         return {
           type: isSeriesElement ? "R" : "L",
           value: value,
           arrangement: isSeriesElement ? "series" : "parallel",
         };
-      }else if(finding.component == "LC"){
+      }else if(find1.component == "LC"){
         return {
           type: isSeriesElement ? "C" : "L",
           value: value,
@@ -336,7 +336,7 @@ let denC1 = [...denCoeffs].reverse();
     console.log(elements, "cauer 1 result");
     // canvasCal(elements)
 
-    if(finding.component == "R"){
+    if(find1.component == "R"){
 
     drawCircuit(elements , "RL"); // RL
     
@@ -349,7 +349,7 @@ let denC1 = [...denCoeffs].reverse();
 
       drawCircuit( modifiedResults, "RC"); // RC
     }
-    else if(finding.component == "LC"){
+    else if(find1.component == "LC"){
       drawCircuit( elements, "LC"); // RC
     
     }
@@ -369,22 +369,14 @@ let denC1 = [...denCoeffs].reverse();
           Cauer 1 Analysis
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <PolynomialInput
-            numerator={numerator}
-            denominator={denominator}
-            setNumerator={setNumerator}
-            setDenominator={setDenominator}
-            onAnalyze={() => {
-              /* Add Cauer 1 analysis logic */
-            }}
-          />
+         
           <div className="bg-white p-6 rounded-lg shadow-md">
             {/* Add Cauer 1 results display here */}
             <h2 className="text-2xl font-bold mb-4">Results</h2>
             
             {cauer1Results && (
               <div>
-                <h2>{`Cauer 1 Results ${finding.component}C`}</h2>
+                <h2>{`Cauer 1 Results ${find1.component}C`}</h2>
                 <ul>
                   {cauer1Results.map((component, index) => (
                     <li key={index}>

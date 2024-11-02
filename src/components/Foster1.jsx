@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PolynomialInput from "./PolynomialInput";
 
 const Foster1 = () => {
     const [numerator, setNumerator] = useState('');
     const [denominator, setDenominator] = useState('');
+
+
+    useEffect(() => {
+      
+      let foundTerms = calculatePartialFractions(numCoeffs, denCoeffs, foundRoots);
+      
+      
+    }, [])
+    
   
     return (
       <div className="min-h-screen bg-gray-50 py-8">

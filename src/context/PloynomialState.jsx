@@ -21,6 +21,7 @@ function PolynomialState({ children }) {
   const [results , setResults] = useState([]);
   const [error, setError] = useState(null);
   const [finding, setFinding] = useState({});
+  const [roots, setRoots,] = useState([]);
 
 
     const processCoefficients = () => {
@@ -46,6 +47,8 @@ function PolynomialState({ children }) {
         setNumCoeffs,
         denCoeffs,
         setDenCoeffs,
+        roots,
+        setRoots,
         
         // Results
         foster1Results,

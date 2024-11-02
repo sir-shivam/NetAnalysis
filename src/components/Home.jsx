@@ -6,8 +6,8 @@ import PolynomialContext from "../context/PolynomialContext";
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const [numerator, setNumerator] = useState("6+8s^1+2s^2");
-    const [denominator, setDenominator] = useState("12+8s^1+1s^2");
+    const [numerator, setNumerator] = useState("2s^6+1s^4+6s^2+8");
+    const [denominator, setDenominator] = useState("1s^2 + 3s^1");
     const {
         numCoeffs,
         setNumCoeffs,
@@ -44,6 +44,16 @@ const HomePage = () => {
     //   navigate('/analysis');
     // };
 
+    // Function to parse polynomial terms and check even/odd power patterns
+
+
+// Test the function with input directly
+const input1 = "1s^3 + 3s^1";
+const input2 = "2s^6+3s^5+1s^4 + 6s^2 + 8";
+const input3 = "1s^2 + 3s^1";
+const input4 = "1s^2 + 6s^1 + 8";
+
+
 
     const parsePolynomial = (input) => {
       const terms = input.split("+").map((term) => term.trim());
@@ -64,6 +74,43 @@ const HomePage = () => {
       return coefficients.length ? coefficients : [0];
     };
 
+    function hasAlternateZeros(arr) {
+      let zeroCount = 0; // Counter for zero occurrences
+  
+      for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === 0) {
+              zeroCount++;
+              // If two consecutive zeros are found, return false
+              if (zeroCount > 1 && arr[i - 1] === 0) {
+                  return false;
+              }
+          }
+      }
+  
+      // Check if the count of zeros is even or odd; they should be in alternate positions
+      return zeroCount === 0 || zeroCount % 2 === 1; 
+  }
+
+  function removeAlternateZeros(arr) {
+    let result = [];
+    // let zeroCount = 0; // Initialize zero count within the function
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0) {
+            // Only add the 0 to the result if it is the first occurrence
+            if (i === 0) {
+                result.push(arr[i]);
+            }
+        } else {
+            // Always add non-zero values
+            result.push(arr[i]);
+        }
+    }
+
+    return result; // Return result
+}
+
+
 
 
 
@@ -80,8 +127,17 @@ const HomePage = () => {
   
       try {
         // Parse input polynomials
-        const numCoeff = parsePolynomial(numerator);
-        const denCoeff = parsePolynomial(denominator);
+        let  numCoeff = parsePolynomial(numerator);
+        if(hasAlternateZeros(numCoeff)){
+          console.log("num has alt");
+          // alert for LC circuit only 
+          numCoeff = removeAlternateZeros(numCoeff);
+        }
+        let  denCoeff = parsePolynomial(denominator);
+        if(hasAlternateZeros(denCoeff)){
+          // alert for LC circuit only 
+          denCoeff = removeAlternateZeros(denCoeff);
+        }
         console.log(numCoeff , "given num");
         console.log(denCoeff ,"given denom");
         
