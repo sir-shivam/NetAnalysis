@@ -32,11 +32,15 @@ export default function Cauer1RC() {
     setResults,
     error,
     setError,
+    finalResult,
+    setFinalResult
+
   } = useContext(PolynomialContext);
 
     useEffect(() => {
       const result = Cauer1(numCoeffs , denCoeffs);
       setCauer1RC(result);
+      setFinalResult([]);
       console.log(result , "cau1 RC")
     }, [])
     

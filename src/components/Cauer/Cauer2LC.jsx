@@ -32,6 +32,7 @@ export default function Cauer2LC() {
     setResults,
     error,
     setError,
+    finalResult,setFinalResult
   } = useContext(PolynomialContext);
 
     useEffect(() => {
@@ -41,7 +42,8 @@ export default function Cauer2LC() {
         ...component,
         type : component.type === 'R' ? 'C' : 'L'
       }));
-      setCauer2LC(modifiedResults)
+      setCauer2LC(modifiedResults);
+      setFinalResult([]);
       console.log(modifiedResults, "cau1 RC")
     }, [])
     

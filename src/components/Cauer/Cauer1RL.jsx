@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Cauer1 from './Cauer1calculation';
 import PolynomialContext from '../../context/PolynomialContext';
 
-export default function Cauer1RC() {
+export default function Cauer1RL() {
   const [cauer1RL, setCauer1RL] = useState([]);
 
   const {
@@ -32,6 +32,8 @@ export default function Cauer1RC() {
     setResults,
     error,
     setError,
+    finalResult,
+    setFinalResult
   } = useContext(PolynomialContext);
 
     useEffect(() => {
@@ -41,7 +43,8 @@ export default function Cauer1RC() {
         ...component,
         arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
       }));
-      setCauer1RL(modifiedResults)
+      setCauer1RL(modifiedResults);
+      setFinalResult([]);
       console.log(modifiedResults, "cau1 RC")
     }, [])
     
