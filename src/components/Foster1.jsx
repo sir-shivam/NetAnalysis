@@ -5,7 +5,7 @@ import PolynomialInput from "./PolynomialInput";
 const Foster1 = () => {
     const [numerator, setNumerator] = useState('');
     const [denominator, setDenominator] = useState('');
-
+    console.log("Hello");
 
     useEffect(() => {
       

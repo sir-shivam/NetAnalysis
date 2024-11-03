@@ -92,7 +92,7 @@ export default function Results() {
         }
         if(design==="Foster2LC"){
             return <div>
-            {/* <FosterRCSynthesis terms={terms}/> */}
+             
            </div>
         }
         if(design==="Cauer1 LC"){
@@ -142,7 +142,7 @@ export default function Results() {
         }
         if(design==="Foster2RC"){
           return <div>
-           {/* <Foster1RLSynthesis terms={terms}/> */}
+           
          </div>
           // console.log("Foster RL is running")
         }
