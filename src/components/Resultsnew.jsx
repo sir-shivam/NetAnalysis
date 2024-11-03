@@ -7,6 +7,8 @@ import Foster1RLSynthesis from './Foster1RL';
 import Cauer1 from './Cauer1';
 import Cauer2 from './Cauer2';
 import Foster1RCSynthesis from './Foster1RC';
+import Foster2RLSynthesis from './Foster2RL';
+import Foster2RCSynthesis from './Foster2RC';
 
 export default function Results() {
 
@@ -143,7 +145,7 @@ export default function Results() {
         }
         if(design==="Foster2RC"){
           return <div>
-           
+           <Foster2RCSynthesis terms={terms}/>
          </div>
           // console.log("Foster RL is running")
         }
@@ -154,9 +156,9 @@ export default function Results() {
           // console.log("Foster RL is running")
         }
         if(design==="Foster2RL"){
-          // <Foster2RCSynthesis terms={terms}/>
+          
           return <div>
-
+           <Foster2RLSynthesis terms={terms}/>
          </div>
         }
       }

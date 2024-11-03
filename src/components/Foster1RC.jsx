@@ -20,7 +20,7 @@ const Foster1RCSynthesis = ({ terms }) => {
       } else if (term.type === 'simple_pole') {
         elements.push({
           type: 'resonant_pair',
-          R: term.coefficient ,
+          R: term.coefficient/term.root  ,
           C: 1 / term.coefficient,
           position: 'parallel'
         });
