@@ -63,7 +63,7 @@ const Foster1RLSynthesis = ({ terms }) => {
                   <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
                   {/* Connect line to next element */}
                   <line x1={xPosition + 10} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
-                  <text x={xPosition+10} y="90" fontSize="12" fill="black">C={element.value.toFixed(2)}</text>
+                  <text x={xPosition+10} y="90" fontSize="12" fill="black">L={element.value.toFixed(2)}</text>
                 </>
               )}
 
@@ -79,7 +79,7 @@ const Foster1RLSynthesis = ({ terms }) => {
                   <Inductor x={xPosition} y="140" />
                   <line x1={xPosition - 50} y1="160" x2={xPosition} y2="160" stroke="black" strokeWidth="2" />
                   <line x1={xPosition+10} y1="160" x2={xPosition +100} y2="160" stroke="black" strokeWidth="2" />
-                  <text x={xPosition+20} y="180" fontSize="12" fill="black">C={element.L.toFixed(2)}</text>
+                  <text x={xPosition+20} y="180" fontSize="12" fill="black">L={element.L.toFixed(2)}</text>
                   {/* Connect the two parallel elements */}
                   <line x1={xPosition-50} y1="80" x2={xPosition-50} y2="160" stroke="black" strokeWidth="2" />
                   <line x1={xPosition +100} y1="120" x2={xPosition + 110} y2="120" stroke="black" strokeWidth="2" />
