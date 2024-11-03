@@ -5,10 +5,12 @@ import FosterCalculation from './FosterCalculation';
 import Foster1RLSynthesis from './Foster1RL';
 import Cauer1 from './Cauer1';
 import Cauer2 from './Cauer2';
+import Foster1RCSynthesis from './Foster1RC';
 
 export default function Results() {
 
   const [design, setDesign]= useState("");
+  const [terms , setTerms]= useState([]);
   const {
         numCoeffs,
         setNumCoeffs,
@@ -54,19 +56,20 @@ export default function Results() {
 //     ],
 //   };
 
-    let terms = [];
+    // let terms = [];
 
     useEffect(() => {
       
     const rootFound = findRootsAberth(denCoeffs);
     setRoots(rootFound);
     console.log(rootFound , "rrots");
-    terms = FosterCalculation(numCoeffs , denCoeffs , rootFound );
-
-    console.log(terms , "found")
+    const termsFound = FosterCalculation(numCoeffs , denCoeffs , rootFound );
+    setTerms(termsFound);
+    console.log(termsFound , "found")
       
     }, [numCoeffs , denCoeffs])
     
+    console.log(terms , "h");
 
   function handleDesgin(selectedDesign){
     setDesign(selectedDesign);
@@ -89,19 +92,18 @@ export default function Results() {
         }
         if(design==="Cauer1 LC"){
             return <div>
-             < Cauer1 find1={{circuit: "C1",
-          component : "LC"}}  />
+             < Cauer1 find1={{circuit: "C1", component : "LC" , component1 : "LC"}}  />
            </div>
         }
         if(design==="Cauer2 LC"){
             return <div>
             < Cauer2 find1={{circuit: "C2",
-          component : "LC"}}  />
+          component : "LC" , component1 : "LC"}}  />
            </div>
         }
         if(design==="Foster1RC"){
           return <div>
-                       {/* <Foster1RCSynthesis terms={terms}/> */}
+                       <Foster1RCSynthesis terms={terms}/>
 
          </div>
           // console.log("Foster RL is running")
@@ -110,14 +112,14 @@ export default function Results() {
             
           return <div>
             < Cauer1 find1={{circuit: "C1",
-          component : "R"}}  />
+          component : "R" , component1 : "RC"}}  />
          </div>
           // console.log("Foster RL is running")
         }
         if(design==="Cauer1RL"){
           return <div>
             < Cauer1 find1={{circuit: "C1",
-          component : "R"}}  />
+          component : "R" , component1 : "RL"}}  />
          </div>
         
 
@@ -127,14 +129,14 @@ export default function Results() {
             
           return <div className='overflow-y-auto'>
             <Cauer2  find1={{circuit: "C2",
-          component : "R"}}/>
+          component : "R" , component1 : "RC" }}/>
          </div>
           // console.log("Foster RL is running")
         }
         if(design==="Cauer2RL"){
           return <div>
            < Cauer2 find1={{circuit: "C2",
-          component : "R"}}  />
+          component : "R" , component1 : "RL"}}  />
          </div>
           // console.log("Foster RL is running")
         }
@@ -146,7 +148,7 @@ export default function Results() {
         }
         if(design==="Foster1RL"){
           return <div>
-           {/* <Foster1RLSynthesis terms={terms}/> */}
+           <Foster1RLSynthesis terms={terms}/>
          </div>
           // console.log("Foster RL is running")
         }
