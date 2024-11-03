@@ -9,7 +9,7 @@ const Cauer2 = ({find1}) => {
   const canvasRef  = useRef(null);
   const canvasRef1  = useRef(null);
   // let modifiedResults = [];
-  const [cauerRL , setCauerRl] = useState([]);
+  const [cauer2Final , setCauer2Final] = useState([]);
 
   const {
     numCoeffs,
@@ -55,7 +55,7 @@ const Cauer2 = ({find1}) => {
       const result = calculateContinuedFraction1(numC2, denC2);
       // canvasCal();
     }
-  }, []);
+  }, [find1.component1]);
   
 
  
@@ -214,7 +214,7 @@ const Cauer2 = ({find1}) => {
        circuitDrawer = new CircuitDrawer(canvasRef);
     }
     else if(componenet == "RC"){
-      circuitDrawer = new CircuitDrawer(canvasRef1);
+      circuitDrawer = new CircuitDrawer(canvasRef);
 
     }
     circuitDrawer.drawCircuit(elements);
@@ -334,24 +334,33 @@ const Cauer2 = ({find1}) => {
     });
 
     console.log("\nFinal circuit elements:");
-    setCauer1Results(elements);
-    console.log(elements, "cauer 1 result");
+    setCauer2Results(elements);
+    console.log(elements, "cauer 2 result");
     // canvasCal(elements)
 
     if(find1.component == "R"){
+      if(find1.component1 == "RL"){
 
-    drawCircuit(elements , "RL"); // RL
+        setCauer2Final(elements);
+        console.log(cauer2Final , "final");
+        drawCircuit(elements , "RL"); // RL
+      }
+      else if(find1.component1 == "RC"){
+
+        const modifiedResults = elements.map((component) => ({
+          ...component,
+          arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
+        }));
+  
+        setCauer2Final(modifiedResults);
+  
+        drawCircuit( modifiedResults, "RC"); // RC
+      }
+
     
-      const modifiedResults = elements.map((component) => ({
-        ...component,
-        arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
-      }));
-
-      setCauerRl(modifiedResults);
-
-      drawCircuit( modifiedResults, "RC"); // RC
     }
     else if(find1.component == "LC"){
+      setCauer2Final(elements);
       drawCircuit( elements, "LC"); // RC
     
     }
@@ -365,22 +374,22 @@ const Cauer2 = ({find1}) => {
   
 
   return (
-    <div className="overflow-auto bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-center">
-          Cauer 1 Analysis
+          Cauer 2 Analysis
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+         
           <div className="bg-white p-6 rounded-lg shadow-md">
             {/* Add Cauer 1 results display here */}
             <h2 className="text-2xl font-bold mb-4">Results</h2>
             
-            {cauer1Results && (
+            {cauer2Final && (
               <div>
-                <h2>{`Cauer 1 Results ${find1.component}C`}</h2>
+                <h2>{`Cauer 1 Results ${find1.component1}`}</h2>
                 <ul>
-                  {cauer1Results.map((component, index) => (
+                  {cauer2Final.map((component, index) => (
                     <li key={index}>
                       <strong>Type:</strong> {component.type},
                       <strong> Value:</strong> {component.value.toFixed(4)},
@@ -392,32 +401,9 @@ const Cauer2 = ({find1}) => {
               </div>
             )}
            <div>
-                < h2>Cauer 1 Circuit </h2>
+                < h2>Cauer 2 {find1.component1} Circuit </h2>
                 <canvas ref={canvasRef} width={600} height={300} style={{ border: '1px solid black' }}></canvas>
                 </div>
-
-                {cauer1Results && (
-              <div>
-                <h2>Cauer 1 Results RL</h2>
-                <ul>
-                  {cauerRL.map((component, index) => (
-                    <li key={index}>
-                      <strong>Type:</strong> {component.type},
-                      <strong> Value:</strong> {component.value.toFixed(4)},
-                      <strong> Arrangement:</strong> {component.arrangement}
-                    </li>
-                  ))}
-                </ul>
-                
-              </div>
-            )}
-
-<div>
-                < h2>Cauer 1 Circuit </h2>
-                <canvas ref={canvasRef1} width={600} height={300} style={{ border: '1px solid black' }}></canvas>
-                </div>
-
-
           </div>
         </div>
       </div>
