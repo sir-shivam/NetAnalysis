@@ -3,6 +3,7 @@ import PolynomialContext from '../context/PolynomialContext';
 import findRootsAberth from './Rootfind';
 import FosterCalculation from './FosterCalculation';
 import Foster1RLSynthesis from './Foster1RL';
+
 import Cauer1 from './Cauer1';
 import Cauer2 from './Cauer2';
 import Foster1RCSynthesis from './Foster1RC';
@@ -87,7 +88,7 @@ export default function Results() {
         }
         if(design==="Foster2LC"){
             return <div>
-            {/* <FosterRCSynthesis terms={terms}/> */}
+             
            </div>
         }
         if(design==="Cauer1 LC"){
@@ -142,7 +143,7 @@ export default function Results() {
         }
         if(design==="Foster2RC"){
           return <div>
-           {/* <Foster1RLSynthesis terms={terms}/> */}
+           
          </div>
           // console.log("Foster RL is running")
         }
