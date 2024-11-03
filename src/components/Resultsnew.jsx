@@ -3,9 +3,14 @@ import PolynomialContext from '../context/PolynomialContext';
 import findRootsAberth from './Rootfind';
 import FosterCalculation from './FosterCalculation';
 import Foster1RLSynthesis from './Foster1RL';
-import Cauer1 from './Cauer1';
-import Cauer2 from './Cauer2';
+import Cauer1 from './Cauer/Cauer1calculation';
 import Foster1RCSynthesis from './Foster1RC';
+import Cauer1RC from './Cauer/Cauer1RC';
+import Cauer1RL from './Cauer/Cauer1RL';
+import Cauer2RC from './Cauer/Cauer2RC';
+import Cauer2RL from './Cauer/Cauer2RL';
+import Cauer1LC from './Cauer/Cauer1LC';
+import Cauer2LC from './Cauer/Cauer2LC';
 
 export default function Results() {
 
@@ -92,13 +97,12 @@ export default function Results() {
         }
         if(design==="Cauer1 LC"){
             return <div>
-             < Cauer1 find1={{circuit: "C1", component : "LC" , component1 : "LC"}}  />
+            <Cauer1LC />
            </div>
         }
         if(design==="Cauer2 LC"){
             return <div>
-            < Cauer2 find1={{circuit: "C2",
-          component : "LC" , component1 : "LC"}}  />
+            <Cauer2LC />
            </div>
         }
         if(design==="Foster1RC"){
@@ -111,15 +115,13 @@ export default function Results() {
         if(design==="Cauer1RC"){
             
           return <div>
-            < Cauer1 find1={{circuit: "C1",
-          component : "R" , component1 : "RC"}}  />
+           <Cauer1RC />
          </div>
           // console.log("Foster RL is running")
         }
         if(design==="Cauer1RL"){
           return <div>
-            < Cauer1 find1={{circuit: "C1",
-          component : "R" , component1 : "RL"}}  />
+           <Cauer1RL />
          </div>
         
 
@@ -128,15 +130,13 @@ export default function Results() {
         if(design==="Cauer2RC"){
             
           return <div className='overflow-y-auto'>
-            <Cauer2  find1={{circuit: "C2",
-          component : "R" , component1 : "RC" }}/>
+           <Cauer2RC />
          </div>
           // console.log("Foster RL is running")
         }
         if(design==="Cauer2RL"){
           return <div>
-           < Cauer2 find1={{circuit: "C2",
-          component : "R" , component1 : "RL"}}  />
+          <Cauer2RL />
          </div>
           // console.log("Foster RL is running")
         }
