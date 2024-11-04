@@ -15,6 +15,7 @@ const Foster2RCSynthesis = ({ terms }) => {
 
   const synthesizeFoster1 = (terms) => {
     const elements = [];
+    console.log(terms , "foserr 2 RC")
     
     terms.forEach((term) => {
       if (term.type === 'polynomial' && term.power === 0) {
@@ -24,8 +25,8 @@ const Foster2RCSynthesis = ({ terms }) => {
       } else if (term.type === 'simple_pole') {
         elements.push({
           type: 'resonant_pair',
-          R:-( term.coefficient/ term.root) ,
-          L: 1 / term.coefficient,
+          R:( 1/term.coefficient) ,
+          C: -(term.coefficient / term.root),
           position: 'series'
         });
       }
@@ -99,7 +100,7 @@ const Foster2RCSynthesis = ({ terms }) => {
                 <line x1={xPosition + 20} y1="220" x2={xPosition + 20} y2="250" stroke="black" strokeWidth="2" />
                 
                 <NewCapacitor x={xPosition} y="240" />
-                <text x={xPosition+35} y="260" fontSize="12" fill="black">C={element.L.toFixed(2)} F</text>
+                <text x={xPosition+35} y="260" fontSize="12" fill="black">C={element.C.toFixed(2)} F</text>
                 <line x1={xPosition+20} y1="260" x2={xPosition+20} y2="350" stroke="black" strokeWidth="2" />
                 
                 <line x1={xPosition - 60} y1="120" x2={xPosition +100} y2="120" stroke="black" strokeWidth="2" />

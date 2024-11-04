@@ -9,9 +9,12 @@ const Foster1RLSynthesis = ({ terms }) => {
 
   const synthesizeFoster2 = (terms) => {
     const elements = [];
+
+    console.log(terms , "RL");
+
     
     terms.forEach((term) => {
-      if (term.type === 'polynomial' && term.power === 0) {
+      if ((term.type === 'polynomial' && term.power === 0 ) || term.root === 0  ) {
         elements.push({ type: 'resistor', value: term.coefficient, position: 'series' });
       } else if (term.type === 'simple_pole' && term.power === 1) {
         elements.push({ type: 'inductor', value:  term.coefficient, position: 'series' });
@@ -19,12 +22,13 @@ const Foster1RLSynthesis = ({ terms }) => {
         elements.push({
           type: 'resonant_pair',
           R: term.coefficient ,
-          L:  ((term.coefficient)/(term.root)),
+          L:  -((term.coefficient)/(term.root)),
           position: 'parallel'
         });
       }
     });
-    console.log("hii"+elements);
+
+    console.log("hii",elements);
     return elements;
   };
 

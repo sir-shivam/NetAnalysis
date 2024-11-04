@@ -37,6 +37,7 @@ export default function Results() {
     
     const termsFound = FosterCalculation(numCoeffs, denCoeffs, rootFound);
     setTerms(termsFound);
+    console.log(termsFound , "after ")
   }, [numCoeffs, denCoeffs]);
 
   // Function to handle synthesis options based on finding and parameter type

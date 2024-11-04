@@ -63,7 +63,7 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
         // Multiply both numerator and denominator by s (add a root at 0)
         smethod = true;
         const newDenCoeffs = [0, ...denCoeffs];
-        const newRoots = [0 , ...foundRoots];
+        const newRoots = [{root : 0 , multiplicity : 1}, ...foundRoots];
         
       //   roots = [0 , ...roots];
         
@@ -71,7 +71,7 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
         foundTerms = calculatePartialFractions(numCoeffs, newDenCoeffs, newRoots  );
       }
 
-
+      console.log(foundTerms , "found terms");
       return foundTerms;
 
     

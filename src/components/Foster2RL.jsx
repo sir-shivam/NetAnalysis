@@ -24,12 +24,13 @@ const Foster2RLSynthesis = ({ terms }) => {
       } else if (term.type === 'simple_pole') {
         elements.push({
           type: 'resonant_pair',
-          R:-( term.coefficient/ term.root) ,
+          R:-( term.root/term.coefficient) ,
           L: 1 / term.coefficient,
           position: 'series'
         });
       }
     });
+    console.log(elements , "in RL of F@")
 
     return elements;
   };

@@ -47,7 +47,7 @@ export default function Cauer2RC() {
   
             {Cauer2RC.length > 0 && (
               <div>
-                <h2>Cauer 1 RC results</h2>
+                <h2>Cauer 2 RC results</h2>
                 <ul>
                   {Cauer2RC.map((component, index) => (
                     <li key={index}>
