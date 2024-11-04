@@ -14,11 +14,13 @@ import Cauer1RC from './Cauer/Cauer1RC';
 import Cauer2LC from './Cauer/Cauer2LC';
 import Cauer2RC from './Cauer/Cauer2RC';
 import Cauer2RL from './Cauer/Cauer2RL';
+import FosterSynthesis1LC from './FosterLC';
+import Foster2SynthesisLC from './Foster2LC';
 
 export default function Results() {
   const [design, setDesign] = useState("");
   const [terms, setTerms] = useState([]);
-
+  
   const {
     numCoeffs,
     denCoeffs,
@@ -71,24 +73,24 @@ export default function Results() {
       if (finding.nearest === "pole") {
         if (parameterType === "z") {
           addOption("Foster1RC", "Foster1RC");
-          addOption("Foster2RC", "Foster2RC");
+          addOption("Foster2RL", "Foster2RL");
           addOption("Cauer1RC", "Cauer1RC");
           addOption("Cauer2RC", "Cauer2RC");
         } else {
           addOption("Foster1RL", "Foster1RL");
-          addOption("Foster2RL", "Foster2RL");
+          addOption("Foster2RC", "Foster2RC");
           addOption("Cauer1RL", "Cauer1RL");
           addOption("Cauer2RL", "Cauer2RL");
         }
       } else if (finding.nearest === "zero") {
         if (parameterType === "z") {
           addOption("Foster1RL", "Foster1RL");
-          addOption("Foster2RL", "Foster2RL");
+          addOption("Foster2RC", "Foster2RC");
           addOption("Cauer1RL", "Cauer1RL");
           addOption("Cauer2RL", "Cauer2RL");
         } else {
           addOption("Foster1RC", "Foster1RC");
-          addOption("Foster2RC", "Foster2RC");
+          addOption("Foster2RL", "Foster2RL");
           addOption("Cauer1RC", "Cauer1RC");
           addOption("Cauer2RC", "Cauer2RC");
         }
@@ -101,9 +103,7 @@ export default function Results() {
   // Render the selected circuit synthesis component
   const renderCircuit = () => {
     switch (design) {
-      case "Foster1LC":
-      case "Foster2LC":
-        return <p>LC circuits selected but no component available</p>;
+     
       case "Cauer1LC":
         return <Cauer1LC />;
       case "Cauer2LC":
@@ -124,6 +124,10 @@ export default function Results() {
         return <Cauer1RL />;
       case "Cauer2RL":
         return <Cauer2RL />;
+      case "Foster1LC":
+        return <FosterSynthesis1LC terms={terms}/>
+      case "Foster2LC":
+        return <Foster2SynthesisLC terms={terms}/>
       default:
         return <p>Select a circuit design to see the synthesis result.</p>;
     }

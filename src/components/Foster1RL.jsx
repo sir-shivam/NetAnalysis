@@ -53,13 +53,13 @@ const Foster1RLSynthesis = ({ terms }) => {
               {/* Series Inductor or Capacitor */}
               {element.type === 'resistor' && (
                 <>
-                  <Resistor x={xPosition} y="100" />
+                  <Resistor x={xPosition} y="120" />
                   {/* Connect line from left side */}
                   <div>hello</div>
                   <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
                   {/* Connect line to next element */}
-                  <line x1={xPosition + 50} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
-                  <text x={xPosition+10} y="140" fontSize="12" fill="black">R={element.value.toFixed(2)}</text>
+                  <line x1={xPosition + 50} y1="120" x2={xPosition + 110} y2="120" stroke="black" strokeWidth="2" />
+                  <text x={xPosition+10} y="150" fontSize="12" fill="black">R={element.value.toFixed(2)} ohms</text>
                 </>
               )}
 
@@ -78,15 +78,15 @@ const Foster1RLSynthesis = ({ terms }) => {
               {element.type === 'resonant_pair' && (
                 <>
                   {/* Inductor in parallel */}
-                  <Resistor x={xPosition} y="70" />
+                  <Resistor x={xPosition} y="80" />
                   <line x1={xPosition - 50} y1="80" x2={xPosition} y2="80" stroke="black" strokeWidth="2" />
                   <line x1={xPosition + 50} y1="80" x2={xPosition + 100} y2="80" stroke="black" strokeWidth="2" />
-                  <text x={xPosition+20} y="60" fontSize="12" fill="black">R={element.R.toFixed(2)}</text>
+                  <text x={xPosition+20} y="60" fontSize="12" fill="black">R={element.R.toFixed(2)} ohms</text>
                   {/* Capacitor in parallel, below the inductor */}
-                  <Inductor x={xPosition} y="140" />
+                  <Inductor x={xPosition} y="150" />
                   <line x1={xPosition - 50} y1="160" x2={xPosition} y2="160" stroke="black" strokeWidth="2" />
-                  <line x1={xPosition+10} y1="160" x2={xPosition +100} y2="160" stroke="black" strokeWidth="2" />
-                  <text x={xPosition+20} y="180" fontSize="12" fill="black">L={element.L.toFixed(2)}</text>
+                  <line x1={xPosition+50} y1="160" x2={xPosition +100} y2="160" stroke="black" strokeWidth="2" />
+                  <text x={xPosition+20} y="180" fontSize="12" fill="black">L={element.L.toFixed(2)} H</text>
                   {/* Connect the two parallel elements */}
                   <line x1={xPosition-50} y1="80" x2={xPosition-50} y2="160" stroke="black" strokeWidth="2" />
                   <line x1={xPosition +100} y1="120" x2={xPosition + 110} y2="120" stroke="black" strokeWidth="2" />
