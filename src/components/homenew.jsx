@@ -1,250 +1,216 @@
-import React, { useState , useContext} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PolynomialContext from "../context/PolynomialContext";
-
+import findRootsAberth from './Rootfind';
 
 export default function Home({ onAnalyze }) {
     const navigate = useNavigate();
-    const [numerator, setNumerator] = useState("24+18s^1+3s^2");
-    const [denominator, setDenominator] = useState("3s^1+1s^2");
-    const [Analyse, setAnalyse] = useState(false);
+    const [numerator, setNumerator] = useState("3s^2+18s^1+24");
+    const [denominator, setDenominator] = useState("1s^2+3s^1");
     const [isCalculating, setIsCalculating] = useState(false);
 
-
-
     const {
-        numCoeffs,
-        setNumCoeffs,
-        denCoeffs,
-        setDenCoeffs,
-        
-        // Results
-        foster1Results,
-        setFoster1Results,
-        foster2Results,
-        setFoster2Results,
-        cauer1Results,
-        setCauer1Results,
-        cauer2Results,
-        setCauer2Results,
-        
-        // Method selection
-        currentMethod,
-        setCurrentMethod,
-        
-        // Status
-        isAnalyzing,
-        setIsAnalyzing,
-        results ,
-        setResults,
-        error,
-        setError,
-        finding,
-        setFinding
-        
+        numCoeffs, setNumCoeffs,
+        denCoeffs, setDenCoeffs,
+        finding, setFinding,
+        parameterType, setParameterType,
+        error, setError
     } = useContext(PolynomialContext);
-  
-    // const handleAnalyze = () => {
-    //   navigate('/analysis');
-    // };
-
-    // Function to parse polynomial terms and check even/odd power patterns
-
-
-// Test the function with input directly
-const input1 = "1s^3 + 3s^1";
-const input2 = "2s^6+3s^5+1s^4 + 6s^2 + 8";
-const input3 = "1s^2 + 3s^1";
-const input4 = "1s^2 + 6s^1 + 8";
 
 
 
+    useEffect(() => {
+      
+    
+      setError("");
+      
+    }, [numerator , denominator])
+    
+    // Parsing function
     const parsePolynomial = (input) => {
-      const terms = input.split("+").map((term) => term.trim());
-      const coefficients = [];
-  
-      terms.forEach((term) => {
-        const match = term.match(/^([\d.]+)(s\^(\d+))?$/);
-        if (match) {
-          const coeff = parseFloat(match[1]);
-          const power = match[3] ? parseInt(match[3]) : 0;
-          while (coefficients.length <= power) {
-            coefficients.push(0);
-          }
-          coefficients[power] = coeff;
-        }
-      });
-  
-      return coefficients.length ? coefficients : [0];
+        const terms = input.split("+").map(term => term.trim());
+        const coefficients = [];
+
+        terms.forEach(term => {
+            const match = term.match(/^([\d.]+)(s\^(\d+))?$/);
+            if (match) {
+                const coeff = parseFloat(match[1]);
+                const power = match[3] ? parseInt(match[3]) : 0;
+                while (coefficients.length <= power) coefficients.push(0);
+                coefficients[power] = coeff;
+            }
+        });
+
+        return coefficients.length ? coefficients : [0];
     };
 
-    function hasAlternateZeros(arr) {
-        // Check if the array contains any zeros
-        if (!arr.includes(0)) {
-            return false; // No zeros in the array, return false
-        }
-    
-        let lastZeroIndex = -1; // Initialize to -1 to track the last zero index
-        let foundFirstZero = false; // Track if we have found the first zero
-    
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] === 0) {
-                // Check for consecutive zeros
-                if (lastZeroIndex === i - 1) {
-                    return false; // Found consecutive zeros
-                }
-                lastZeroIndex = i; // Update last zero index
-                foundFirstZero = true; // Mark that we found the first zero
-            }
-        }
-    
-        // Check if at least one non-zero exists after the first zero
-        if (foundFirstZero) {
-            for (let j = lastZeroIndex + 1; j < arr.length; j++) {
-                if (arr[j] !== 0) {
-                    return true; // Found a non-zero after a zero
-                }
-            }
-            return false; // No non-zero found after the last zero
-        }
-    
-        return false; // Fallback, should not reach here
-    }
+    // Check if array has zeros at alternate positions (all even or all odd indices)
+const hasAlternateZeros = (arr) => {
+  if (!arr || arr.length === 0) return false;
+  
+  // Check if zeros are at even indices
+  let evenZeros = true;
+  let oddZeros = true;
+  
+  for (let i = 0; i < arr.length; i++) {
+      if (i % 2 === 0 && arr[i] !== 0) {
+          evenZeros = false;
+      }
+      if (i % 2 === 1 && arr[i] !== 0) {
+          oddZeros = false;
+      }
+  }
+  
+  // Return true if either all even indices or all odd indices are zeros
+  return evenZeros || oddZeros;
+};
 
-  function removeAlternateZeros(arr) {
-    let result = [];
-    // let zeroCount = 0; // Initialize zero count within the function
+// Remove coefficients at positions that cause alternate zeros
+const removeAlternateZeros = (arr) => {
+  if (!arr || arr.length === 0) return [];
+  
+  // Determine if zeros are at even or odd positions
+  let removeEven = true;
+  for (let i = 0; i < arr.length; i += 2) {
+      if (arr[i] !== 0) {
+          removeEven = false;
+          break;
+      }
+  }
+  
+  // Create new array removing appropriate indices
+  return arr.filter((_, index) => 
+      removeEven ? index % 2 === 1 : index % 2 === 0
+  );
+};
 
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === 0) {
-            // Only add the 0 to the result if it is the first occurrence
-            if (i === 0) {
-                result.push(arr[i]);
-            }
-        } else {
-            // Always add non-zero values
-            result.push(arr[i]);
-        }
-    }
-
-    return result; // Return result
-}
-
-
-
-
-
+// Process both numerator and denominator polynomials
+const processPolynomials = (numCoeff, denCoeff) => {
+  let possibleCircuit = null;
+  
+  // Check and process numerator
+  if (hasAlternateZeros(numCoeff)) {
+      possibleCircuit = "LC";
+      numCoeff = removeAlternateZeros(numCoeff);
+  }
+  
+  // Check and process denominator
+  if (hasAlternateZeros(denCoeff)) {
+      if (possibleCircuit === "LC") {
+          denCoeff = removeAlternateZeros(denCoeff);
+      } else {
+          throw new Error("Error - circuit not feasible");
+      }
+  }
+  
+  return { numCoeff, denCoeff };
+};
 
 
     const handleCalculate = async () => {
-    let possibleCircuit = "R";
-      setError("");
-      setIsAnalyzing(true);
-      setResults(null);
+        setIsCalculating(true);
 
-      setTimeout(() => {
-        setIsAnalyzing(false);
-      }, 3000);
-  
-      try {
-        // Parse input polynomials
-        let  numCoeff = parsePolynomial(numerator);
-        if(hasAlternateZeros(numCoeff)){
-          console.log("num has alt");
-          // alert for LC circuit only 
-          console.log("alternating 0 " , numCoeff)
-          possibleCircuit = "LC"
-          numCoeff = removeAlternateZeros(numCoeff);
-        }
-        let  denCoeff = parsePolynomial(denominator);
-        if(hasAlternateZeros(denCoeff)){
-          // alert for LC circuit only 
-          possibleCircuit = "LC"
-          denCoeff = removeAlternateZeros(denCoeff);
-        }
-        console.log(numCoeff , "given num");
-        console.log(denCoeff ,"given denom");
-        
-        if (denCoeff.every((c) => Math.abs(c) < 1e-10)) {
-          throw new Error("Denominator cannot be zero");
-        }
+        try {
+            let possibleCircuit = "R";
 
-        //make it global
-        setNumCoeffs(numCoeff);
-        setDenCoeffs(denCoeff);
-        
-        
-        setFinding({
-          circuit: "none",
-          component : possibleCircuit
-        });
-        
-  
-      } catch (err) {
-        setError(err.message || "Calculation error occurred please tre again");
-      } finally{
-        onAnalyze();
-      }
+            // Parse polynomials
+            let numCoeff = parsePolynomial(numerator);
+            
+            let denCoeff = parsePolynomial(denominator);
+            const result = processPolynomials(numCoeff, denCoeff);
+            console.log(result , "result");
+            console.log(numCoeff , "num");
+
+            // Validate denominator
+            if (denCoeff.every(c => Math.abs(c) < 1e-10)) {
+                throw new Error("Denominator cannot be zero");
+            }
+
+            // Calculate roots
+            const numRoots = findRootsAberth(numCoeff);
+            const denRoots = findRootsAberth(denCoeff);
+
+            // Check for non-positive roots only
+            const allRoots = [...numRoots, ...denRoots];
+            if (allRoots.some(root => root.root > 0)) {
+                throw new Error("All roots must be non-positive (negative or zero only)");
+            }
+
+            // Sort and alternate roots
+            const combinedRoots = [
+                ...numRoots.map(root => ({ ...root, type: "zero" })),
+                ...denRoots.map(root => ({ ...root, type: "pole" }))
+            ].sort((a, b) => a.root - b.root);
+
+            const isAlternatingRoots = combinedRoots.every((item, index) => {
+                if (index === 0) return true;
+                return combinedRoots[index - 1].type !== item.type;
+            });
+            if (!isAlternatingRoots) throw new Error("Circuit not feasible as poles and zeros do not alternate");
+
+            // Nearest root to origin
+            const nearestRoot = combinedRoots.reduce((closest, current) => {
+                return Math.abs(current.root) < Math.abs(closest.root) ? current : closest;
+            });
+
+            // Set findings and coefficients
+            setNumCoeffs(numCoeff);
+            setDenCoeffs(denCoeff);
+            setFinding({ nearest: nearestRoot.type, component: possibleCircuit });
+            onAnalyze();
+
+
+        } catch (err) {
+            setError(err.message || "Calculation error occurred. Please try again.");
+        } finally {
+            setIsCalculating(false);
+        }
     };
 
+    return (
+        <div className="flex items-center justify-center bg-gray-100 min-h-screen">
+            <div className="bg-white p-6 shadow-md rounded-lg w-full max-w-2xl">
+                <h2 className="text-2xl font-semibold">Network Analysis Circuit Analyzer</h2>
+                <p className="text-gray-600 mb-4">Enter the transfer function details below</p>
 
-  return (
-    <div
-      className={`${
-        Analyse ? 'h-screen ' : 'min-h-screen'
-      } flex items-center justify-center bg-gray-100 transition-all duration-500  `}
-    >
-      <div
-        className={`${
-          Analyse ? 'w-[80%]' : 'w-full max-w-2xl'
-        }  bg-white p-6 shadow-md rounded-lg max-h-[80vh] overflow-y-auto transition-all duration-500`}
-      >
-        <div className="mb-4">
-          <h2 className="text-2xl font-semibold">Network Analysis Calculator</h2>
-          <p className="text-gray-600">Enter the transfer function details below</p>
+                <label className="block text-sm font-medium mb-2">Parameter Type</label>
+                <select
+                    value={parameterType}
+                    onChange={(e) => setParameterType(e.target.value)}
+                    className="w-full p-2 border rounded mb-4"
+                >
+                    <option value="z">Z Parameter</option>
+                    <option value="y">Y Parameter</option>
+                </select>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">Numerator</label>
+                <input
+                    type="text"
+                    value={numerator}
+                    onChange={(e) => setNumerator(e.target.value)}
+                    placeholder="Example: 3s^2+18s+24"
+                    className="w-full p-4 border rounded mb-4"
+                />
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">Denominator</label>
+                <input
+                    type="text"
+                    value={denominator}
+                    onChange={(e) => setDenominator(e.target.value)}
+                    placeholder="Example: 1s^2+3s+4"
+                    className="w-full p-4 border rounded mb-4"
+                />
+
+                <button
+                    onClick={handleCalculate}
+                    disabled={isCalculating}
+                    className={`w-full p-4 text-white ${isCalculating ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} rounded transition duration-300`}
+                >
+                    {isCalculating ? 'Calculating...' : 'Analyze Circuit'}
+                </button>
+
+                {error && <p className="text-red-600 mt-4">{error}</p>}
+            </div>
         </div>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="numerator" className="block text-sm font-medium text-gray-700">
-              Numerator (Format: a + bs^1 + cs^2...)
-            </label>
-            <input
-              type="text"
-              id="numerator"
-              value={numerator}
-              onChange={(e) => setNumerator(e.target.value)}
-              placeholder="Example: 2 + 3s^2"
-              className={`${
-                Analyse ? 'w-full' : 'w-full'
-              } px-3 py-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-500`}
-              style={{ minHeight: '3rem', resize: 'vertical' }}
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="denominator" className="block text-sm font-medium text-gray-700">
-              Denominator (Format: a + bs^1 + cs^2...)
-            </label>
-            <input
-              type="text"
-              id="denominator"
-              value={denominator}
-              onChange={(e) => setDenominator(e.target.value)}
-              placeholder="Example: 1 + 2s^1 + 4s^3"
-              className={`${
-                Analyse ? 'w-full' : 'w-full'
-              } px-3 py-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-500`}
-              style={{ minHeight: '3rem', resize: 'vertical' }}
-            />
-          </div>
-          <button
-            onClick={handleCalculate}
-            disabled={isCalculating}
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            {isCalculating ? 'Calculating...' : 'Analyze Circuit'}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

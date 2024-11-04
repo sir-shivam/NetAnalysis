@@ -2,228 +2,156 @@ import React, { useContext, useEffect, useState } from 'react';
 import PolynomialContext from '../context/PolynomialContext';
 import findRootsAberth from './Rootfind';
 import FosterCalculation from './FosterCalculation';
-import Foster1RLSynthesis from './Foster1RL';
 
-import Cauer1 from './Cauer/Cauer1calculation';
+import Foster1RLSynthesis from './Foster1RL';
+import Foster1RCSynthesis from './Foster1RC';
+import Foster2RLSynthesis from './Foster2RL';
+import Foster2RCSynthesis from './Foster2RC';
+
 import Cauer1RL from './Cauer/Cauer1RL';
 import Cauer1LC from './Cauer/Cauer1LC';
 import Cauer1RC from './Cauer/Cauer1RC';
 import Cauer2LC from './Cauer/Cauer2LC';
 import Cauer2RC from './Cauer/Cauer2RC';
 import Cauer2RL from './Cauer/Cauer2RL';
-import Foster1RCSynthesis from './Foster1RC';
-import Foster2RLSynthesis from './Foster2RL';
-import Foster2RCSynthesis from './Foster2RC';
-import Cauer1RL from './Cauer/Cauer1RL';
 
 export default function Results() {
+  const [design, setDesign] = useState("");
+  const [terms, setTerms] = useState([]);
 
-  const [design, setDesign]= useState("");
-  const [terms , setTerms]= useState([]);
   const {
-        numCoeffs,
-        setNumCoeffs,
-        denCoeffs,
-        setDenCoeffs,
-        roots,
-        setRoots,
-        
-        // Results
-        foster1Results,
-        setFoster1Results,
-        foster2Results,
-        setFoster2Results,
-        cauer1Results,
-        setCauer1Results,
-        cauer2Results,
-        setCauer2Results,
-        
-        // Method selection
-        currentMethod,
-        setCurrentMethod,
-        
-        // Status
-        isAnalyzing,
-        setIsAnalyzing,
-        results ,
-        setResults,
-        error,
-        setError,
-        finding,
-        setFinding,
-        finalResult,
-        setFinalResult
-        
-    } = useContext(PolynomialContext);
+    numCoeffs,
+    denCoeffs,
+    roots,
+    setRoots,
+    finding,
+    parameterType,
+    finalResult
+  } = useContext(PolynomialContext);
 
-//    setResults = {
-//     roots: [
-//       { root: 1.2345, multiplicity: 1 },
-//       { root: -0.6789, multiplicity: 2 },
-//     ],
-//     terms: [
-//       { type: 'polynomial', coefficient: 2.3456, power: 1 },
-//       { type: 'fraction', coefficient: 1.2345, root: -0.6789 },
-//     ],
-//   };
-
-    // let terms = [];
-
-    useEffect(() => {
-      
+  useEffect(() => {
     const rootFound = findRootsAberth(denCoeffs);
     setRoots(rootFound);
-    console.log(rootFound , "rrots");
-    const termsFound = FosterCalculation(numCoeffs , denCoeffs , rootFound );
+    
+    const termsFound = FosterCalculation(numCoeffs, denCoeffs, rootFound);
     setTerms(termsFound);
-    console.log(termsFound , "found")
-      
-    }, [numCoeffs , denCoeffs])
-    
-    console.log(terms , "h");
+  }, [numCoeffs, denCoeffs]);
 
-  function handleDesgin(selectedDesign){
-    setDesign(selectedDesign);
-    console.log(selectedDesign , "hello");
-    }    
-    
+  // Function to handle synthesis options based on finding and parameter type
+  const renderSynthesisOptions = () => {
+    const options = [];
+    const addOption = (label, value) =>
+      options.push(
+        <button
+          key={value}
+          className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100"
+          onClick={() => setDesign(value)}
+        >
+          {label}
+        </button>
+      );
 
-
-    function handleCircuit(design){
-        console.log("in circuit");
-        if(design==="Foster1LC"){
-          return <div>
-         
-          </div>
+    if (finding.component === "LC") {
+      addOption("Foster1LC", "Foster1LC");
+      addOption("Foster2LC", "Foster2LC");
+      addOption("Cauer1 LC", "Cauer1LC");
+      addOption("Cauer2 LC", "Cauer2LC");
+    } else {
+      if (finding.nearest === "pole") {
+        if (parameterType === "z") {
+          addOption("Foster1RC", "Foster1RC");
+          addOption("Foster2RC", "Foster2RC");
+          addOption("Cauer1RC", "Cauer1RC");
+          addOption("Cauer2RC", "Cauer2RC");
+        } else {
+          addOption("Foster1RL", "Foster1RL");
+          addOption("Foster2RL", "Foster2RL");
+          addOption("Cauer1RL", "Cauer1RL");
+          addOption("Cauer2RL", "Cauer2RL");
         }
-        if(design==="Foster2LC"){
-            return <div>
-             
-           </div>
-        }
-        if(design==="Cauer1 LC"){
-            return <div>
-            <Cauer1LC />
-           </div>
-        }
-        if(design==="Cauer2 LC"){
-            return <div>
-            <Cauer2LC />
-           </div>
-        }
-        if(design==="Foster1RC"){
-          return <div>
-                       <Foster1RCSynthesis terms={terms}/>
-
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Cauer1RC"){
-            
-          return <div>
-           <Cauer1RC />
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Cauer1RL"){
-          return <div>
-           <Cauer1RL/>
-         </div>
-        
-
-          // console.log("Foster RL is running")
-        }
-        if(design==="Cauer2RC"){
-            
-          return <div className='overflow-y-auto'>
-           <Cauer2RC />
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Cauer2RL"){
-          return <div>
-          <Cauer2RL />
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Foster2RC"){
-          return <div>
-           <Foster2RCSynthesis terms={terms}/>
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Foster1RL"){
-          return <div>
-           <Foster1RLSynthesis terms={terms}/>
-         </div>
-          // console.log("Foster RL is running")
-        }
-        if(design==="Foster2RL"){
-          
-          return <div>
-           <Foster2RLSynthesis terms={terms}/>
-         </div>
+      } else if (finding.nearest === "zero") {
+        if (parameterType === "z") {
+          addOption("Foster1RL", "Foster1RL");
+          addOption("Foster2RL", "Foster2RL");
+          addOption("Cauer1RL", "Cauer1RL");
+          addOption("Cauer2RL", "Cauer2RL");
+        } else {
+          addOption("Foster1RC", "Foster1RC");
+          addOption("Foster2RC", "Foster2RC");
+          addOption("Cauer1RC", "Cauer1RC");
+          addOption("Cauer2RC", "Cauer2RC");
         }
       }
+    }
+
+    return options;
+  };
+
+  // Render the selected circuit synthesis component
+  const renderCircuit = () => {
+    switch (design) {
+      case "Foster1LC":
+      case "Foster2LC":
+        return <p>LC circuits selected but no component available</p>;
+      case "Cauer1LC":
+        return <Cauer1LC />;
+      case "Cauer2LC":
+        return <Cauer2LC />;
+      case "Foster1RC":
+        return <Foster1RCSynthesis terms={terms} />;
+      case "Foster2RC":
+        return <Foster2RCSynthesis terms={terms} />;
+      case "Cauer1RC":
+        return <Cauer1RC />;
+      case "Cauer2RC":
+        return <Cauer2RC />;
+      case "Foster1RL":
+        return <Foster1RLSynthesis terms={terms} />;
+      case "Foster2RL":
+        return <Foster2RLSynthesis terms={terms} />;
+      case "Cauer1RL":
+        return <Cauer1RL />;
+      case "Cauer2RL":
+        return <Cauer2RL />;
+      default:
+        return <p>Select a circuit design to see the synthesis result.</p>;
+    }
+  };
 
   return (
     <div className="p-6 space-y-4">
       <h2 className="text-2xl font-semibold">Analysis Results</h2>
       <p className="text-gray-600">Circuit analysis results and synthesis options</p>
-      <div className="space-y-4">
-        
-       
-        <div>
-          <h3 className="font-medium">Synthesis Options:</h3>
-          <div className="flex flex-wrap gap-2">
-          { finding.component == "LC" ? 
-          (<div>
-            <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster1LC")}>Foster1LC</button>
-            <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster2LC")}>Foster2LC</button>
-            <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer1 LC")}>Cauer1 LC</button>
-            <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer2 LC")}>Cauer2 LC</button>
-          </div>)
-           :
-           (<div> <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster1RC")}>Foster1RC</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster2RL")}>Foster2RL</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer1RC")}>Cauer1RC</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer1RL")}>Cauer1RL</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer2RC")}>Cauer2RC</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Cauer2RL")}>Cauer2RL</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster2RC")}>Foster2RC</button>
-          <button className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100" onClick={()=>handleDesgin("Foster1RL")}>Foster1RL</button>
-        </div>) }
-          
-          </div>
-        </div>
-      </div>
-      <h2 className="text-2xl font-bold mb-4">Results</h2>
-  
-      {
-  finalResult && (
-    <div>
-      <h2>{`${design}`} results</h2>
-      <ul>
-        {finalResult.map((component, index) => (
-          <li key={index}>
-            <strong>Type:</strong> {component.type},
-            <strong> Value:</strong> {component.type === 'resonant_pair' 
-              ? `R: ${component.R.toFixed(4)}, C: ${component.C}` 
-              : component.value.toFixed(4)
-            },
-            <strong> Arrangement:</strong> {component.position}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
       
-      <div className='overflow-y-auto  h-[68vh]'>
-      <h1>Final Component</h1>
-      {/* Pass terms as a prop to FosterSynthesis */}
-      {design && handleCircuit(design)}
-    </div>
+      <div>
+        <h3 className="font-medium">Synthesis Options:</h3>
+        <div className="flex flex-wrap gap-2">{renderSynthesisOptions()}</div>
+      </div>
+      
+      <h2 className="text-2xl font-bold mb-4">Results</h2>
+
+      {finalResult && (
+        <div>
+          <h2>{`${design} Results`}</h2>
+          <ul>
+            {finalResult.map((component, index) => (
+              <li key={index}>
+                <strong>Type:</strong> {component.type},
+                <strong> Value:</strong>{" "}
+                {component.type === "resonant_pair"
+                  ? `R: ${component.R.toFixed(4)}, C: ${component.C}`
+                  : component.value.toFixed(4)},
+                <strong> Arrangement:</strong> {component.position}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="overflow-y-auto h-[68vh]">
+        <h1>Final Component</h1>
+        {renderCircuit()}
+      </div>
     </div>
   );
 }

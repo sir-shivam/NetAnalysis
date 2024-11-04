@@ -90,7 +90,7 @@ export default function Cauer2LC() {
 
     {/* write circuit  logc here  here i have doubt about the parrallel and series */}
     <svg width="600" height="300" style={{ border: '1px solid black' }}>
-                {cauer1RC.map((component, index) => {
+                {Cauer2LC.map((component, index) => {
                   const xPosition = 50 + index * 100; // Horizontal position for each component
 
                   if (component.type === 'R') {
