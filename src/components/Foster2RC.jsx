@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import {Inductor} from '../elements/Inductor';
 // import { Capacitor } from '../elements/Capacitor';
 // import { Resistor } from '../elements/Resitor';
@@ -7,8 +7,10 @@ import { Resistor } from './elements/Resitor';
 import { NewInductor } from './elements/NewInductor';
 import { Capacitor } from './elements/Capacitor';
 import { NewResistor } from './elements/NewResistor';
+import PolynomialContext from '../context/PolynomialContext';
 const Foster2RCSynthesis = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
+  const {finalResult,setFinalResult} = useContext(PolynomialContext);
   
 
   const synthesizeFoster1 = (terms) => {
@@ -38,6 +40,7 @@ const Foster2RCSynthesis = ({ terms }) => {
     if (terms && terms.length > 0) {
       const synthesizedElements = synthesizeFoster1(terms);
       setNetworkElements(synthesizedElements);
+      setFinalResult(synthesizedElements);
       console.log(synthesizedElements );
     }
   }, [terms]);

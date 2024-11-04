@@ -14,6 +14,7 @@ import Cauer2RL from './Cauer/Cauer2RL';
 import Foster1RCSynthesis from './Foster1RC';
 import Foster2RLSynthesis from './Foster2RL';
 import Foster2RCSynthesis from './Foster2RC';
+import Cauer1RL from './Cauer/Cauer1RL';
 
 export default function Results() {
 
@@ -49,7 +50,9 @@ export default function Results() {
         error,
         setError,
         finding,
-        setFinding
+        setFinding,
+        finalResult,
+        setFinalResult
         
     } = useContext(PolynomialContext);
 
@@ -194,7 +197,29 @@ export default function Results() {
           </div>
         </div>
       </div>
-      <div className='overflow-y-auto border border-green-300 h-[68vh]'>
+      <h2 className="text-2xl font-bold mb-4">Results</h2>
+  
+      {
+  finalResult && (
+    <div>
+      <h2>{`${design}`} results</h2>
+      <ul>
+        {finalResult.map((component, index) => (
+          <li key={index}>
+            <strong>Type:</strong> {component.type},
+            <strong> Value:</strong> {component.type === 'resonant_pair' 
+              ? `R: ${component.R.toFixed(4)}, C: ${component.C}` 
+              : component.value.toFixed(4)
+            },
+            <strong> Arrangement:</strong> {component.position}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+      
+      <div className='overflow-y-auto  h-[68vh]'>
       <h1>Final Component</h1>
       {/* Pass terms as a prop to FosterSynthesis */}
       {design && handleCircuit(design)}

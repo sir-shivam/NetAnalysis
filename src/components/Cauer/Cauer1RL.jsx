@@ -36,6 +36,8 @@ export default function Cauer1RL() {
     setResults,
     error,
     setError,
+    finalResult,
+    setFinalResult
   } = useContext(PolynomialContext);
 
     useEffect(() => {
@@ -45,7 +47,8 @@ export default function Cauer1RL() {
         ...component,
         arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
       }));
-      setCauer1RL(modifiedResults)
+      setCauer1RL(modifiedResults);
+      setFinalResult([]);
       console.log(modifiedResults, "cau1 RC")
     }, [])
     
