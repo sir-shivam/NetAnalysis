@@ -51,11 +51,17 @@ export default function Results() {
         </button>
       );
 
-    if (finding.component === "LC") {
-      addOption("Foster1LC", "Foster1LC");
-      addOption("Foster2LC", "Foster2LC");
-      addOption("Cauer1 LC", "Cauer1LC");
-      addOption("Cauer2 LC", "Cauer2LC");
+    if (finding.component === "LC" ) {
+      if(parameterType === "z"){
+        addOption("Foster1LC", "Foster1LC");
+        addOption("Cauer1 LC", "Cauer1LC");
+        addOption("Cauer2 LC", "Cauer2LC");
+      }
+      else{
+        addOption("Cauer1 LC", "Cauer1LC");
+        addOption("Cauer2 LC", "Cauer2LC");
+        addOption("Foster2LC", "Foster2LC");
+      }
     } else {
       if (finding.nearest === "pole") {
         if (parameterType === "z") {

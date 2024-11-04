@@ -22,7 +22,7 @@ const Foster1RCSynthesis = ({ terms }) => {
       } else if (term.type === 'simple_pole') {
         elements.push({
           type: 'resonant_pair',
-          R: term.coefficient/term.root  ,
+          R: -term.coefficient/term.root  ,
           C: 1 / term.coefficient,
           position: 'parallel'
         });
@@ -62,7 +62,7 @@ const Foster1RCSynthesis = ({ terms }) => {
                   <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
                   <line x1={xPosition + 50} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
                   <text x={xPosition + 10} y="140" fontSize="12" fill="black">
-                    R={element.value.toFixed(2)}
+                    R={element.value.toFixed(3)} ohm
                   </text>
                 </>
               )}
@@ -74,7 +74,7 @@ const Foster1RCSynthesis = ({ terms }) => {
                   <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
                   <line x1={xPosition + 10} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
                   <text x={xPosition + 10} y="90" fontSize="12" fill="black">
-                    C={element.value.toFixed(2)}
+                    C={element.value.toFixed(3)} F
                   </text>
                 </>
               )}
@@ -87,15 +87,15 @@ const Foster1RCSynthesis = ({ terms }) => {
                   <line x1={xPosition - 50} y1="80" x2={xPosition} y2="80" stroke="black" strokeWidth="2" />
                   <line x1={xPosition + 50} y1="80" x2={xPosition + 100} y2="80" stroke="black" strokeWidth="2" />
                   <text x={xPosition + 20} y="60" fontSize="12" fill="black">
-                    R={element.R.toFixed(2)}
+                    R={element.R.toFixed(3)} ohm
                   </text>
   
                   {/* Capacitor in parallel, below the resistor */}
-                  <NewCapacitor x={xPosition} y="140" />
+                  <Capacitor x={xPosition} y="140" />
                   <line x1={xPosition - 50} y1="160" x2={xPosition} y2="160" stroke="black" strokeWidth="2" />
                   <line x1={xPosition + 10} y1="160" x2={xPosition + 100} y2="160" stroke="black" strokeWidth="2" />
                   <text x={xPosition + 20} y="180" fontSize="12" fill="black">
-                    C={element.C.toFixed(2)}
+                    C={element.C.toFixed(3)} F
                   </text>
   
                   {/* Connecting lines between parallel components */}
