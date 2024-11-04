@@ -41,7 +41,7 @@ const Foster1RLSynthesis = ({ terms }) => {
   }, [terms]);
 
   return (
-    <div className="w-full max-w-2xl border rounded-lg p-6 shadow-sm">
+    <div className="w-full max-w-2xl  rounded-lg p-6 shadow-sm">
       <h3 className="text-2xl font-semibold mb-6">Foster1 RL Network Synthesis</h3>
       
       <svg width="800" height="300">

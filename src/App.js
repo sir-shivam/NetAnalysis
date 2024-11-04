@@ -17,7 +17,7 @@ function App() {
       <div className="flex min-h-screen transition-all duration-500">
         {/* Left section with Home component */}
         <div
-          className={`bg-gray-100  transition-all duration-500  ${
+          className={`bg-blue-500 transition-all duration-500  ${
             showResults ? 'w-2/5 px-10' : 'w-full'
           }`}
         >

@@ -174,49 +174,52 @@ const processPolynomials = (numCoeff, denCoeff) => {
     };
 
     return (
-        <div className="flex items-center justify-center bg-gray-100 min-h-screen">
-            <div className="bg-white p-6 shadow-md rounded-lg w-full max-w-2xl">
-                <h2 className="text-2xl font-semibold">Network Analysis Circuit Analyzer</h2>
-                <p className="text-gray-600 mb-4">Enter the transfer function details below</p>
+        <div className="flex-col justify-center items-center bg-blue-500 min-h-screen">
+             <h1 className="text-4xl text-center pt-5 text-white font-semibold">Network Analysis Circuit Analyzer</h1>
+        <div className='flex justify-center items-center pt-16'>
+        <div className="bg-white p-10 shadow-md rounded-lg w-full max-w-2xl">
+               
+               <p className="text-gray-600 mb-4">Enter the transfer function details below</p>
 
-                <label className="block text-sm font-medium mb-2">Parameter Type</label>
-                <select
-                    value={parameterType}
-                    onChange={(e) => setParameterType(e.target.value)}
-                    className="w-full p-2 border rounded mb-4"
-                >
-                    <option value="z">Z Parameter</option>
-                    <option value="y">Y Parameter</option>
-                </select>
+               <label className="block text-sm font-medium mb-2">Parameter Type</label>
+               <select
+                   value={parameterType}
+                   onChange={(e) => setParameterType(e.target.value)}
+                   className="w-full p-2 border rounded mb-4"
+               >
+                   <option value="z">Z Parameter</option>
+                   <option value="y">Y Parameter</option>
+               </select>
 
-                <label className="block text-sm font-medium text-gray-700 mb-2">Numerator</label>
-                <input
-                    type="text"
-                    value={numerator}
-                    onChange={(e) => setNumerator(e.target.value)}
-                    placeholder="Example: 3s^2+18s+24"
-                    className="w-full p-4 border rounded mb-4"
-                />
+               <label className="block text-sm font-medium text-gray-700 mb-2">Numerator</label>
+               <input
+                   type="text"
+                   value={numerator}
+                   onChange={(e) => setNumerator(e.target.value)}
+                   placeholder="Example: 3s^2+18s+24"
+                   className="w-full p-4 border rounded mb-4"
+               />
 
-                <label className="block text-sm font-medium text-gray-700 mb-2">Denominator</label>
-                <input
-                    type="text"
-                    value={denominator}
-                    onChange={(e) => setDenominator(e.target.value)}
-                    placeholder="Example: 1s^2+3s+4"
-                    className="w-full p-4 border rounded mb-4"
-                />
+               <label className="block text-sm font-medium text-gray-700 mb-2">Denominator</label>
+               <input
+                   type="text"
+                   value={denominator}
+                   onChange={(e) => setDenominator(e.target.value)}
+                   placeholder="Example: 1s^2+3s+4"
+                   className="w-full p-4 border rounded mb-4"
+               />
 
-                <button
-                    onClick={handleCalculate}
-                    disabled={isCalculating}
-                    className={`w-full p-4 text-white ${isCalculating ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} rounded transition duration-300`}
-                >
-                    {isCalculating ? 'Calculating...' : 'Analyze Circuit'}
-                </button>
+               <button
+                   onClick={handleCalculate}
+                   disabled={isCalculating}
+                   className={`w-full p-4 text-white ${isCalculating ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} rounded transition duration-300`}
+               >
+                   {isCalculating ? 'Calculating...' : 'Analyze Circuit'}
+               </button>
 
-                {error && <p className="text-red-600 mt-4">{error}</p>}
-            </div>
+               {error && <p className="text-red-600 mt-4">{error}</p>}
+           </div>
+        </div>
         </div>
     );
 }

@@ -49,7 +49,7 @@ export default function Results() {
       options.push(
         <button
           key={value}
-          className="px-4 py-2 border rounded-md border-gray-300 hover:bg-gray-100"
+          className="px-4 py-2 border hover:bg-blue-500 hover:text-white rounded-md hover:ring-2 hover:ring-blue-900 border-gray-500 bg-white hover:bg-gray-100"
           onClick={() => setDesign(value)}
         >
           {label}
@@ -134,12 +134,12 @@ export default function Results() {
   };
 
   return (
-    <div className="p-6 space-y-4">
+    <div className="p-6 space-y-4 bg-blue-400">
       <h2 className="text-2xl font-semibold">Analysis Results</h2>
-      <p className="text-gray-600">Circuit analysis results and synthesis options</p>
+      <p className="text-gray-200">Circuit analysis results and synthesis options</p>
       
       <div>
-        <h3 className="font-medium">Synthesis Options:</h3>
+        <h3 className="font-medium pb-5">Synthesis Options:</h3>
         <div className="flex flex-wrap gap-2">{renderSynthesisOptions()}</div>
       </div>
       
@@ -148,7 +148,7 @@ export default function Results() {
       {finalResult && (
         <div>
           <h2>{`${design} Results`}</h2>
-          <ul>
+          <ul className='text-slate-800'>
             {finalResult.map((component, index) => (
               <li key={index}>
                 <strong>Type:</strong> {component.type},
@@ -163,8 +163,8 @@ export default function Results() {
         </div>
       )}
 
-      <div className="overflow-y-auto h-[68vh]">
-        <h1>Final Component</h1>
+      <div className="overflow-y-auto h-[68vh] bg-white rounded-xl">
+        
         {renderCircuit()}
       </div>
     </div>

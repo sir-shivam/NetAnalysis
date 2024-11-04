@@ -46,15 +46,15 @@ const Foster1RCSynthesis = ({ terms }) => {
 
   return (
     <div>
-    <div className="w-full max-w-2xl border rounded-lg p-6 shadow-sm">
-      <h3 className="text-2xl font-semibold mb-6">Foster1 RC Network Synthesis</h3>
+    <div className=" rounded-lg p-6 ">
+      <h3 className="text-2xl text-center font-semibold mb-6">Foster1 RC Network Synthesis</h3>
       
       <svg width="800" height="300">
         {networkElements.map((element, index) => {
           const xPosition = 80 + index * 160;
   
           return (
-            <g key={index}>
+            <g key={index} className='flex items-center justify-center'>
               {/* Series Resistor */}
               {element.type === 'resistor' && (
                 <>

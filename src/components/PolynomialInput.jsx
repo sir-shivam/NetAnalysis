@@ -3,7 +3,8 @@ import React from 'react';
 
 const PolynomialInput = ({ numerator, denominator, setNumerator, setDenominator, onAnalyze }) => {
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+   <div className=''>
+     <div className="max-w-2xl mx-auto p-6 bg-black rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Polynomial Circuit Analysis</h2>
       <div className="space-y-4">
         <div>
@@ -34,6 +35,7 @@ const PolynomialInput = ({ numerator, denominator, setNumerator, setDenominator,
         </button>
       </div>
     </div>
+   </div>
   );
 };
 
