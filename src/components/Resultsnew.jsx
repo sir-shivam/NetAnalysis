@@ -49,7 +49,7 @@ export default function Results() {
       options.push(
         <button
           key={value}
-          className="px-4 py-2 border hover:bg-blue-500 hover:text-white rounded-md hover:ring-2 hover:ring-blue-900 border-gray-500 bg-white hover:bg-gray-100"
+          className="px-4 py-2 border hover:bg-blue-500 hover:text-white rounded-md hover:ring-2 hover:ring-blue-900 border-gray-500 bg-white "
           onClick={() => setDesign(value)}
         >
           {label}
