@@ -5,6 +5,7 @@ import FosterCalculation from './FosterCalculation';
 import Foster1RLSynthesis from './Foster1RL';
 
 import Cauer1 from './Cauer/Cauer1calculation';
+import Cauer1RL from './Cauer/Cauer1RL';
 import Cauer1LC from './Cauer/Cauer1LC';
 import Cauer1RC from './Cauer/Cauer1RC';
 import Cauer2LC from './Cauer/Cauer2LC';
@@ -123,7 +124,7 @@ export default function Results() {
         }
         if(design==="Cauer1RL"){
           return <div>
-           <Cauer1RL />
+           <Cauer1RL/>
          </div>
         
 

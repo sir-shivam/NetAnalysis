@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Cauer1 from './Cauer1calculation';
 import PolynomialContext from '../../context/PolynomialContext';
-
+import { Resistor } from '../elements/Resitor';
+import { NewInductor } from '../elements/NewInductor';
+import { NewCapacitor } from '../elements/NewCapacitor';
+import { Capacitor } from '../elements/Capacitor';
+import { NewResistor } from '../elements/NewResistor';
 export default function Cauer1RC() {
   const [cauer1RC, setCauer1RC] = useState([]);
+  let result= [];
 
   const {
     numCoeffs,
@@ -35,10 +40,13 @@ export default function Cauer1RC() {
   } = useContext(PolynomialContext);
 
     useEffect(() => {
-      const result = Cauer1(numCoeffs , denCoeffs);
+       result = Cauer1(numCoeffs , denCoeffs);
       setCauer1RC(result);
       console.log(result , "cau1 RC")
     }, [])
+     console.log(results);
+
+    
     
   return(
     <div className="min-h-screen bg-gray-50 py-8">
@@ -70,16 +78,42 @@ export default function Cauer1RC() {
 
 
 
-              {/* <canvas
-                ref={canvasRef}
-                width={600}
-                height={300}
-                style={{ border: "1px solid black" }}
-              ></canvas> */}
+              {}
+              <svg width="600" height="300" style={{ border: '1px solid black' }}>
+                {cauer1RC.map((component, index) => {
+                  const xPosition = 50 + index * 100; // Horizontal position for each component
 
-    {/* write circuit  logc here   */}
+                  if (component.type === 'R') {
+                    // Render a vertical resistor
+                    return (
+                      <g key={index} transform={`translate(${xPosition}, 100)`}>
+                        <Resistor x={0} y={0} />
+                        <text x="0" y="70" fontSize="12" textAnchor="middle" fill="black">
+                          R={component.value.toFixed(2)}
+                        </text>
+                        <line x1={xPosition - 50} y1="100" x2={xPosition} y2="100" stroke="black" strokeWidth="2" />
+                      </g>
+                    );
+                  } else if (component.type === 'L') {
+                    // Render a horizontal capacitor
+                    return (
+                      <g key={index} transform={`translate(${xPosition}, 150)`}>
+                        <NewInductor x={0} y={0} />
+                        <text x="35" y="40" fontSize="12" textAnchor="middle" fill="black">
+                          L={component.value.toFixed(2)} H
+                        </text>
+                        <line x1={xPosition - 140} y1="80" x2={xPosition-140} y2="100" stroke="black" strokeWidth="2" />
+                        <line x1={xPosition -140} y1="100" x2={xPosition} y2="100" stroke="black" strokeWidth="2" />
+                      </g>
+                    );
+                  }
+                  return null;
+                })}
+              </svg>
 
+    {}
 
+     
 
 
             </div>
