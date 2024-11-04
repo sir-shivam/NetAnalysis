@@ -17,8 +17,9 @@ export default function Cauer2RC() {
       const result = Cauer2(numCoeffs, denCoeffs);
       const modifiedResults = result.map((component) => ({
         ...component,
-        type : component.type === "L" ? "C" : "R"
-        // arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
+        type : component.type === "R" ? "C" : "R",
+        value : 1/component.value,
+        
       }));
       setCauer2RC(modifiedResults);
       setFinalResult([]);
