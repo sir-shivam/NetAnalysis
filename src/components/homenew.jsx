@@ -17,7 +17,7 @@ export default function Home({ onAnalyze }) {
         error, setError
     } = useContext(PolynomialContext);
 
-
+    let possibleCircuit = "R";
 
     useEffect(() => {
       
@@ -86,7 +86,7 @@ const removeAlternateZeros = (arr) => {
 
 // Process both numerator and denominator polynomials
 const processPolynomials = (numCoeff, denCoeff) => {
-  let possibleCircuit = null;
+  possibleCircuit = null;
   
   // Check and process numerator
   if (hasAlternateZeros(numCoeff)) {
@@ -98,6 +98,9 @@ const processPolynomials = (numCoeff, denCoeff) => {
   if (hasAlternateZeros(denCoeff)) {
       if (possibleCircuit === "LC") {
           denCoeff = removeAlternateZeros(denCoeff);
+          while (denCoeff.length < 3) {
+            denCoeff.unshift(0);
+          }
       } else {
           throw new Error("Error - circuit not feasible");
       }
@@ -111,15 +114,18 @@ const processPolynomials = (numCoeff, denCoeff) => {
         setIsCalculating(true);
 
         try {
-            let possibleCircuit = "R";
+            possibleCircuit = "R";
 
             // Parse polynomials
             let numCoeff = parsePolynomial(numerator);
             
             let denCoeff = parsePolynomial(denominator);
             const result = processPolynomials(numCoeff, denCoeff);
-            console.log(result , "result");
-            console.log(numCoeff , "num");
+            if(result){
+              numCoeff = result.numCoeff;
+              denCoeff = result.denCoeff;
+            }
+            console.log(result);
 
             // Validate denominator
             if (denCoeff.every(c => Math.abs(c) < 1e-10)) {

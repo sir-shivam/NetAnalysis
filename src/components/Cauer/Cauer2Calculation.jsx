@@ -98,9 +98,9 @@ const Cauer2 = (numCoeffs , denCoeffs) => {
           
           const isSeriesElement = index % 2 === 0;
           console.log(isSeriesElement, "parallel , series");
-          if (!isSeriesElement) {
-            value = 1 / comp.quotient;
-          }    
+          // if (!isSeriesElement) {
+          //   value = 1 / comp.quotient;
+          // }    
     
             return {
               type: isSeriesElement ? "R" : "L",

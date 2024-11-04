@@ -30,8 +30,10 @@ export default function Results() {
   } = useContext(PolynomialContext);
 
   useEffect(() => {
+    console.log(denCoeffs , "den");
     const rootFound = findRootsAberth(denCoeffs);
     setRoots(rootFound);
+    console.log(rootFound , "roots")
     
     const termsFound = FosterCalculation(numCoeffs, denCoeffs, rootFound);
     setTerms(termsFound);
@@ -50,6 +52,8 @@ export default function Results() {
           {label}
         </button>
       );
+
+      console.log(finding);
 
     if (finding.component === "LC" ) {
       if(parameterType === "z"){

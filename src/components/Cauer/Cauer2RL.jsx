@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Cauer1 from './Cauer1calculation';
 import PolynomialContext from '../../context/PolynomialContext';
 import CircuitDiagram from './drawCauer';
+import Cauer2 from './Cauer2Calculation';
 
 export default function Cauer2RL() {
   const [Cauer2RL, setCauer2RL] = useState([]);
@@ -14,9 +14,10 @@ export default function Cauer2RL() {
 
   useEffect(() => {
     if (numCoeffs && denCoeffs) {
-      const result = Cauer1(numCoeffs, denCoeffs);
+      const result = Cauer2(numCoeffs, denCoeffs);
       const modifiedResults = result.map((component) => ({
         ...component,
+        type : component.type == "C" ? "R" : "C",
         arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
       }));
       setCauer2RL(modifiedResults);
