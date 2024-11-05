@@ -20,7 +20,7 @@ const Foster2RCSynthesis = ({ terms }) => {
     terms.forEach((term) => {
       if (term.type === 'polynomial' && term.power === 0) {
         elements.push({ type: 'resistor', value: term.coefficient, position: 'parallel' });
-      } else if (term.type === 'simple_pole' && term.root === 0) {
+      } else if (term.type === 'simple_pole' && term.root === 0 && term.coefficient!==0) {
         elements.push({ type: 'capacitor', value: 1 / term.coefficient, position: 'parallel' });
       } else if (term.type === 'simple_pole') {
         elements.push({
@@ -58,7 +58,7 @@ const Foster2RCSynthesis = ({ terms }) => {
           return (
             <g key={index}>
              
-              {element.type === 'capacitor' && (
+              {(element.type === 'capacitor' && element.value!==0)&& (
               <>
               
               <NewCapacitor x={xPosition-40} y="200" />
@@ -70,7 +70,7 @@ const Foster2RCSynthesis = ({ terms }) => {
             </>
             )}
   
-             {element.type === 'resistor' && (
+             {(element.type === 'resistor' && element.value!==0) && (
              <>
             
                 
@@ -87,7 +87,7 @@ const Foster2RCSynthesis = ({ terms }) => {
             )}  
   
             
-              {element.type === 'resonant_pair' && (
+              {(element.type === 'resonant_pair'&& element.value!==0) && (
                 <>
             
                 <line x1={xPosition+20} y1="120" x2={xPosition+20} y2="150" stroke="black" strokeWidth="2" />

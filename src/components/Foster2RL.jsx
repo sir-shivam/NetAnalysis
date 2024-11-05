@@ -58,7 +58,7 @@ const Foster2RLSynthesis = ({ terms }) => {
           return (
             <g key={index}>
               {/* Paralle Capacitor */}
-              {element.type === 'inductor' && (
+              {(element.type === 'inductor'&& element.value!==0) && (
               <>
               <line x1={xPosition } y1="120" x2={xPosition} y2="160" stroke="black" strokeWidth="2" />
               
@@ -71,7 +71,7 @@ const Foster2RLSynthesis = ({ terms }) => {
             </>
             )}
   
-             {element.type === 'resistor' && (
+             {(element.type === 'resistor' && element.value!==0)  && (
              <>
             
                 {/* Vertical line from the main line to the resonant pair */}
@@ -87,7 +87,7 @@ const Foster2RLSynthesis = ({ terms }) => {
             )}  
   
               {/* Parallel Resonant LC Pair */}
-              {element.type === 'resonant_pair' && (
+              {(element.type === 'resonant_pair'&& element.value!==0) && (
                 <>
                 {/* Vertical line from the main line to the resonant pair */}
                 <line x1={xPosition+20} y1="120" x2={xPosition+20} y2="150" stroke="black" strokeWidth="2" />

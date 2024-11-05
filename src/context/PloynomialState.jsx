@@ -24,10 +24,15 @@ function PolynomialState({ children }) {
   const [roots, setRoots] = useState([]);
   const [finalResult,setFinalResult] = useState([]);
   const [parameterType, setParameterType] = useState("z");
+<<<<<<< Updated upstream
   const [numRoot , setNumRoot] = useState([]);
   const [denRoot, setDenRoot] = useState([]);
 
 
+=======
+  const [numRoot,setNumRoot]= useState([]);
+  const [denRoot, setDenRoot]= useState([]);
+>>>>>>> Stashed changes
     const processCoefficients = () => {
     // const numCoeffs = parseCoefficients(numeratorCoeffs);
     // const denCoeffs = parseCoefficients(denominatorCoeffs);
@@ -53,7 +58,7 @@ function PolynomialState({ children }) {
         setDenCoeffs,
         roots,
         setRoots,
-        
+        numRoot,setNumRoot,denRoot,setDenRoot,
         // Results
         foster1Results,
         setFoster1Results,

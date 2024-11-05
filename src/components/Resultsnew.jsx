@@ -20,7 +20,7 @@ import Foster2SynthesisLC from './Foster2LC';
 export default function Results() {
   const [design, setDesign] = useState("");
   const [terms, setTerms] = useState([]);
-  
+  const [terms2, setTerms2]= useState([]);
   const {
     numCoeffs,
     denCoeffs,
@@ -28,18 +28,27 @@ export default function Results() {
     setRoots,
     finding,
     parameterType,
-    finalResult
+    finalResult,
+    numRoot,setNumRoot,denRoot,setDenRoot
   } = useContext(PolynomialContext);
 
   useEffect(() => {
     console.log(denCoeffs , "den");
     const rootFound = findRootsAberth(denCoeffs);
+    const rootFound2 = findRootsAberth(numCoeffs);
+    setNumRoot(rootFound2);
+    setDenRoot(rootFound);
+
     setRoots(rootFound);
-    console.log(rootFound , "roots")
+    console.log(rootFound2 , "roots2")
     
     const termsFound = FosterCalculation(numCoeffs, denCoeffs, rootFound);
     setTerms(termsFound);
+
     console.log(termsFound , "after ")
+    const termsFound2 = FosterCalculation(denCoeffs,numCoeffs,rootFound2);
+    console.log(termsFound2 , "term2");
+    setTerms2(termsFound2);
   }, [numCoeffs, denCoeffs]);
 
   // Function to handle synthesis options based on finding and parameter type
@@ -57,8 +66,24 @@ export default function Results() {
       );
 
       console.log(finding);
+      addOption("Foster1LC", "Foster1LC");
+      
+      addOption("Cauer2 LC", "Cauer2LC");
+      addOption("Cauer1 LC", "Cauer1LC");
+      addOption("Foster2LC", "Foster2LC");
+      addOption("Foster1RC", "Foster1RC");
+          addOption("Foster2RL", "Foster2RL");
+          addOption("Cauer1RC", "Cauer1RC");
+          addOption("Cauer2RC", "Cauer2RC");
+          addOption("Foster1RL", "Foster1RL");
+          addOption("Foster2RC", "Foster2RC");
+          addOption("Cauer1RL", "Cauer1RL");
+          addOption("Cauer2RL", "Cauer2RL");
 
-    if (finding.component === "LC" ) {
+
+
+
+    if (finding.component === "LCC" ) {
       if(parameterType === "z"){
         addOption("Foster1LC", "Foster1LC");
         addOption("Cauer1 LC", "Cauer1LC");
@@ -70,7 +95,7 @@ export default function Results() {
         addOption("Foster2LC", "Foster2LC");
       }
     } else {
-      if (finding.nearest === "pole") {
+      if (finding.nearest === "pol") {
         if (parameterType === "z") {
           addOption("Foster1RC", "Foster1RC");
           addOption("Foster2RL", "Foster2RL");
@@ -109,25 +134,25 @@ export default function Results() {
       case "Cauer2LC":
         return <Cauer2LC />;
       case "Foster1RC":
-        return <Foster1RCSynthesis terms={terms} />;
+        return <Foster1RCSynthesis terms={parameterType==='z'?terms:terms2}/>;
       case "Foster2RC":
-        return <Foster2RCSynthesis terms={terms} />;
+        return <Foster2RCSynthesis terms={parameterType==='y'?terms:terms2} />;
       case "Cauer1RC":
         return <Cauer1RC />;
       case "Cauer2RC":
         return <Cauer2RC />;
       case "Foster1RL":
-        return <Foster1RLSynthesis terms={terms} />;
+        return <Foster1RLSynthesis terms={parameterType==='z'?terms:terms2} />;
       case "Foster2RL":
-        return <Foster2RLSynthesis terms={terms} />;
+        return <Foster2RLSynthesis terms={parameterType==='y'?terms:terms2} />;
       case "Cauer1RL":
         return <Cauer1RL />;
       case "Cauer2RL":
         return <Cauer2RL />;
       case "Foster1LC":
-        return <FosterSynthesis1LC terms={terms}/>
+        return <FosterSynthesis1LC terms={parameterType==='z'?terms:terms2}/>
       case "Foster2LC":
-        return <Foster2SynthesisLC terms={terms}/>
+        return <Foster2SynthesisLC terms={parameterType==='y'?terms:terms2}/>
       default:
         return <p>Select a circuit design to see the synthesis result.</p>;
     }

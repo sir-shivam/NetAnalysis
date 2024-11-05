@@ -1,3 +1,4 @@
+import { evaluateRationalLimit } from "./Limit";
 
 
 const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
@@ -13,7 +14,14 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
 
     const calculatePartialFractions = (numCoeffs, denCoeffs, currentRoots) => {
         const terms = [];
+        const degreeDifference = numCoeffs.length-denCoeffs.length;
+        const leadingQuotient = numCoeffs[0]/denCoeffs[0];
+        const leadingQuotient2 = denCoeffs[0]/numCoeffs[0];
+        const approach = "infinity"
+        const polynomialValueAtInfinity = evaluateRationalLimit(numCoeffs,denCoeffs,approach)
+      console.log(polynomialValueAtInfinity);
         
+        console.log("degreeDifference"+ degreeDifference);
         // Handle polynomial division
         if (numCoeffs.length >= denCoeffs.length) {
           const quotient = numCoeffs[numCoeffs.length - 1] / denCoeffs[denCoeffs.length - 1];
@@ -23,7 +31,7 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
             power: numCoeffs.length - denCoeffs.length
           });
         }
-    
+        
         // Process each root
         currentRoots.forEach(({ root, multiplicity }) => {
           // Evaluate numerator and denominator at root
@@ -70,10 +78,10 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
         // Recalculate with new coefficients
         foundTerms = calculatePartialFractions(numCoeffs, newDenCoeffs, newRoots  );
       }
-
+      
       console.log(foundTerms , "found terms");
       return foundTerms;
-
+      
     
 }
 
