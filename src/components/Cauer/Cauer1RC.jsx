@@ -40,8 +40,8 @@ export default function Cauer1RC() {
         <h1 className="text-3xl font-bold mb-8 text-center">
           Cauer 1 Analysis
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="flex flex-col justify-center items-center ">
+          <div className="bg-white p-6 rounded-lg shadow-md w-[60%] ">
             <h2 className="text-2xl font-bold mb-4">Results</h2>
   
             {cauer1RC.length > 0 && (
@@ -58,11 +58,11 @@ export default function Cauer1RC() {
                 </ul>
               </div>
             )}
+          </div>
             <div>
               <h2>Cauer 1 RC Circuit </h2>
               {renderCircuit()}
             </div>
-          </div>
         </div>
       </div>
     </div>

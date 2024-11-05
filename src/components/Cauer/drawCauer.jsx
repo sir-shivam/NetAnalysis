@@ -152,7 +152,7 @@ class Capacitor extends Component {
 
 const CircuitDiagram = ({cauerResult}) => {
   const canvasRef = useRef(null);
-  const CANVAS_WIDTH = 1200;
+  const CANVAS_WIDTH = 500;
   const CANVAS_HEIGHT = 400;
   const START_X = 50;
   const START_Y = 100;
@@ -229,12 +229,12 @@ const CircuitDiagram = ({cauerResult}) => {
   }, [cauerResult]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className=" max-w-4xl mx-auto">
       <canvas 
         ref={canvasRef} 
         width={CANVAS_WIDTH} 
         height={CANVAS_HEIGHT}
-        className="border border-gray-300"
+        className="border border-gray-300 " 
       />
     </div>
   );
