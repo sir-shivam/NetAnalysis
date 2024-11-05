@@ -61,14 +61,14 @@ const Foster2SynthesisLC = ({ terms }) => {
              <>
             
                 {/* Vertical line from the main line to the resonant pair */}
-                <line x1={xPosition+110} y1="120" x2={xPosition+110} y2="180" stroke="black" strokeWidth="2" />
+                <line x1={xPosition-20} y1="120" x2={xPosition-20} y2="180" stroke="black" strokeWidth="2" />
 
                 {/* Inductor part of resonant pair, placed lower */}
-                <NewInductor x={xPosition+100} y="180" />
+                <NewInductor x={xPosition-30} y="180" />
                 
                 {/* Connecting line between inductor and capacitor in series */}
-                <line x1={xPosition +110} y1="270" x2={xPosition +110} y2="300" stroke="black" strokeWidth="2" />
-                <text x={xPosition+50} y="200" fontSize="12" fill="black">L={element.value.toFixed(2)}H</text>
+                <line x1={xPosition-20} y1="270" x2={xPosition-20 } y2="300" stroke="black" strokeWidth="2" />
+                <text x={xPosition} y="200" fontSize="12" fill="black">L={element.value.toFixed(2)}H</text>
            </>
             )}
 
