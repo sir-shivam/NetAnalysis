@@ -24,6 +24,8 @@ function PolynomialState({ children }) {
   const [roots, setRoots] = useState([]);
   const [finalResult,setFinalResult] = useState([]);
   const [parameterType, setParameterType] = useState("z");
+  const [numRoot , setNumRoot] = useState([]);
+  const [denRoot, setDenRoot] = useState([]);
 
 
     const processCoefficients = () => {
@@ -78,7 +80,9 @@ function PolynomialState({ children }) {
         finalResult,
         setFinalResult,
         parameterType,
-        setParameterType
+        setParameterType,
+        numRoot , setNumRoot,
+        denRoot, setDenRoot,
         
         // Helper functions
         // processCoefficients
