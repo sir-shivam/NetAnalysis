@@ -17,6 +17,7 @@ const Foster2RLSynthesis = ({ terms }) => {
     const elements = [];
     
     terms.forEach((term) => {
+     if(term.coefficient!==0){
       if (term.type === 'polynomial' && term.power === 0) {
         elements.push({ type: 'resistor', value: term.coefficient, position: 'parallel' });
       } else if (term.type === 'simple_pole' && term.root === 0) {
@@ -29,6 +30,7 @@ const Foster2RLSynthesis = ({ terms }) => {
           position: 'series'
         });
       }
+     }
     });
     console.log(elements , "in RL of F@")
 

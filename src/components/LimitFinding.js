@@ -9,12 +9,17 @@ export function limitAsSTendsToZero(numCoeffs, denCoeffs) {
     const denConstantTerm = denCoeffs[denCoeffs.length - 1];
   
     // If the denominator's constant term is 0, the limit does not exist
-    if (denConstantTerm === 0) {
-      throw new Error("Denominator constant term is zero, limit as s -> 0 does not exist");
+    // if (denConstantTerm === 0) {
+    //   throw new Error("Denominator constant term is zero, limit as s -> 0 does not exist");
+    // }
+   let value =  numConstantTerm / denConstantTerm
+    if(!(isNaN(value))){
+      return value;
     }
-  
+    else{
+      return 0;
+    }
     // Calculate the limit as s -> 0
-    return numConstantTerm / denConstantTerm;
   }
   
   

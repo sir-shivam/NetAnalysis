@@ -16,6 +16,7 @@ import Cauer2RC from './Cauer/Cauer2RC';
 import Cauer2RL from './Cauer/Cauer2RL';
 import FosterSynthesis1LC from './FosterLC';
 import Foster2SynthesisLC from './Foster2LC';
+import { limitAsSTendsToInfinity } from './LimitFinding';
 
 export default function Results() {
   const [design, setDesign] = useState("");
@@ -39,6 +40,9 @@ export default function Results() {
     setNumRoot(rootFound2);
     setDenRoot(rootFound);
 
+    console.log(numCoeffs , " numm overall");
+    console.log(denCoeffs , "deno over all");
+
     setRoots(rootFound);
     console.log(rootFound2 , "roots2")
     
@@ -50,7 +54,8 @@ export default function Results() {
     console.log(termsFound2 , "term2");
     setTerms2(termsFound2);
   }, [numCoeffs, denCoeffs]);
-
+   const infiniteTerm = limitAsSTendsToInfinity([...numCoeffs].reverse(),[denCoeffs].reverse());
+   console.log(infiniteTerm);
   // Function to handle synthesis options based on finding and parameter type
   const renderSynthesisOptions = () => {
     const options = [];
@@ -74,8 +79,10 @@ export default function Results() {
         addOption("Foster1LC", "Foster1LC");
         addOption("Cauer1 LC", "Cauer1LC");
         addOption("Cauer2 LC", "Cauer2LC");
+        addOption("Foster2LC", "Foster2LC");
       }
       else{
+        addOption("Foster1LC", "Foster1LC");
         addOption("Cauer1 LC", "Cauer1LC");
         addOption("Cauer2 LC", "Cauer2LC");
         addOption("Foster2LC", "Foster2LC");
@@ -153,23 +160,7 @@ export default function Results() {
       
       <h2 className="text-2xl font-bold mb-4">Results</h2>
 
-      {finalResult && (
-        <div>
-          <h2>{`${design} Results`}</h2>
-          <ul className='text-slate-800'>
-            {finalResult.map((component, index) => (
-              <li key={index}>
-                <strong>Type:</strong> {component.type},
-                <strong> Value:</strong>{" "}
-                {component.type === "resonant_pair"
-                  ? `R: ${component.R.toFixed(4)}, C: ${component.C}`
-                  : component.value.toFixed(4)},
-                <strong> Arrangement:</strong> {component.position}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+     
 
       <div className="overflow-y-auto h-[60.8vh] bg-white rounded-xl ">
         

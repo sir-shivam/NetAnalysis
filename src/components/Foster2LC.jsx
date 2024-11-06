@@ -5,22 +5,24 @@ import { Capacitor } from './elements/Capacitor';
 import { Inductor } from './elements/Inductor';
 const Foster2SynthesisLC = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
-
+ 
   const synthesizeFoster1 = (terms) => {
     const elements = [];
     console.log(terms , 'in LC 2')
     terms.forEach((term) => {
-      if (term.type === 'polynomial' && term.power === 1) {
-        elements.push({ type: 'capacitor', value: term.coefficient, position: 'parallel' });
-      } else if (term.type === 'simple_pole' && term.root === 0) {
-        elements.push({ type: 'inductor', value: 1 / term.coefficient, position: 'parallel' });
-      } else if (term.type === 'simple_pole') {
-        elements.push({
-          type: 'resonant_pair',
-          C: term.coefficient / Math.pow(-term.root, 2),
-          L: 1 / term.coefficient,
-          position: 'series'
-        });
+      if(term.coefficient !==0){
+        if (term.type === 'polynomial' && term.power === 1) {
+          elements.push({ type: 'capacitor', value: term.coefficient, position: 'parallel' });
+        } else if (term.type === 'polynomial' && term.root === 0) {
+          elements.push({ type: 'inductor', value: 1 / term.coefficient, position: 'parallel' });
+        } else if (term.type === 'simple_pole') {
+          elements.push({
+            type: 'resonant_pair',
+            C:- (term.coefficient / term.root),
+            L: 1 / term.coefficient,
+            position: 'series'
+          });
+        }
       }
     });
 
@@ -47,13 +49,14 @@ const Foster2SynthesisLC = ({ terms }) => {
             {/* Parallel Capacitor or Inductor */}
             {element.type === 'capacitor' && (
               <>
-              
-              <Capacitor x={xPosition} y="100" />
+               <line x1={xPosition } y1="120" x2={xPosition } y2="160" stroke="black" strokeWidth="2" />
+              <NewCapacitor x={xPosition-20} y="150" />
               {/* Connect line from left side */}
               <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
               {/* Connect line to next element */}
-              <line x1={xPosition + 50} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
-              <text x={xPosition+10} y="90" fontSize="12" fill="black">C={element.value.toFixed(5)}</text>
+              <line x1={xPosition } y1="168" x2={xPosition } y2="300" stroke="black" strokeWidth="2" />
+              <text x={xPosition+10} y="190" fontSize="12" fill="black">C={element.value.toFixed(5)}F</text>
+              <line x1={xPosition -10} y1="300" x2={xPosition } y2="300" stroke="black" strokeWidth="2" />
             </>
             )}
 

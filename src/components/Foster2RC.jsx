@@ -18,9 +18,10 @@ const Foster2RCSynthesis = ({ terms }) => {
     console.log(terms , "foserr 2 RC")
     
     terms.forEach((term) => {
+     if(term.coefficient!==0 && term.coefficient!==NaN){
       if (term.type === 'polynomial' && term.power === 0) {
         elements.push({ type: 'resistor', value: term.coefficient, position: 'parallel' });
-      } else if (term.type === 'simple_pole' && term.root === 0 && term.coefficient!==0) {
+      } else if (term.type === 'polynomial' && term.power === 1 && term.coefficient!==0) {
         elements.push({ type: 'capacitor', value: 1 / term.coefficient, position: 'parallel' });
       } else if (term.type === 'simple_pole') {
         elements.push({
@@ -30,6 +31,7 @@ const Foster2RCSynthesis = ({ terms }) => {
           position: 'series'
         });
       }
+     }
     });
 
     return elements;
@@ -61,10 +63,10 @@ const Foster2RCSynthesis = ({ terms }) => {
               {(element.type === 'capacitor' && element.value!==0)&& (
               <>
               
-              <NewCapacitor x={xPosition+100} y="200" />
-              <text x={xPosition+55} y="210" fontSize="12" fill="black">C={element.value.toFixed(2)} F</text>
-                <line x1={xPosition+120} y1="220" x2={xPosition+120} y2="350" stroke="black" strokeWidth="2" />
-                <line x1={xPosition+120} y1="120" x2={xPosition+120} y2="210" stroke="black" strokeWidth="2" />
+              <NewCapacitor x={xPosition-30} y="200" />
+              <text x={xPosition+5} y="210" fontSize="12" fill="black">C={element.value.toFixed(2)} F</text>
+                <line x1={xPosition-10} y1="220" x2={xPosition-10} y2="350" stroke="black" strokeWidth="2" />
+                <line x1={xPosition-10} y1="120" x2={xPosition-10} y2="210" stroke="black" strokeWidth="2" />
               
              
             </>

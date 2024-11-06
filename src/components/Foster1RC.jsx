@@ -15,6 +15,7 @@ const Foster1RCSynthesis = ({ terms }) => {
     const elements = [];
     
     terms.forEach((term) => {
+     if(term.coefficient!==0){
       if (term.type === 'polynomial' && term.power === 0) {
         elements.push({ type: 'resistor', value: term.coefficient, position: 'series' });
       } else if (term.type === 'simple_pole' && term.root === 0) {
@@ -27,7 +28,8 @@ const Foster1RCSynthesis = ({ terms }) => {
           position: 'parallel'
         });
       }
-    });
+     }
+    })
 
     return elements;
   };

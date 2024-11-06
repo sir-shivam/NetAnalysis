@@ -1,4 +1,4 @@
-import { limitAsSTendsToInfinity } from "./LimitFinding";
+import { limitAsSTendsToInfinity, limitAsSTendsToZero } from "./LimitFinding";
 
 
 const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
@@ -26,11 +26,12 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
       // }
       if (numCoeffs.length >= denCoeffs.length) {
         const quotient = numCoeffs[numCoeffs.length - 1] / denCoeffs[denCoeffs.length - 1];
-        
-        if (quotient !== 0) {
+        const valueatzero= limitAsSTendsToZero([...numCoeffs].reverse(),[...denCoeffs].reverse());
+        console.log(valueatzero,"zero" , smethod);
+        if (quotient !== 0 && valueatzero!==NaN)  {
           terms.push({
             type: 'polynomial',
-            coefficient: quotient,
+            coefficient:  valueatzero ,
             power: numCoeffs.length - denCoeffs.length
           });
         }
@@ -53,13 +54,11 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
         
         const residue = num / den;
         
-        if(residue != 0){
           terms.push({
             type: 'simple_pole',
             coefficient: residue,
             root: root
           });
-        }
   
         
       });
@@ -85,10 +84,22 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
       foundTerms = calculatePartialFractions(numCoeffs, newDenCoeffs, newRoots  );
     }
 
-    let valueatinfinite = limitAsSTendsToInfinity([...denCoeffs].reverse(),[...numCoeffs].reverse()  );
+    let valueatinfinite = limitAsSTendsToInfinity([...numCoeffs].reverse(),[...denCoeffs].reverse()  );
+    if(smethod){
+      valueatinfinite= limitAsSTendsToInfinity([...numCoeffs].reverse(),[0,...denCoeffs].reverse())
+    }
     console.log(valueatinfinite , "infinite");
 
-    console.log(foundTerms , "found terms");
+    // let valueat
+    foundTerms.push(
+      {
+        type: 'polynomial',
+            coefficient: valueatinfinite,
+            power: 1,
+      }
+    )
+
+    console.log(foundTerms , "found newest");
     return foundTerms;
 
   
