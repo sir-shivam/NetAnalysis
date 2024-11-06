@@ -9,16 +9,27 @@ export default function Cauer1RC() {
   const {
     numCoeffs,
     denCoeffs,
-    setFinalResult
+    setFinalResult,
+    parameterType,
   } = useContext(PolynomialContext);
 
   useEffect(() => {
     if (numCoeffs && denCoeffs) {
-      const result = Cauer1(numCoeffs, denCoeffs);
+      console.log(numCoeffs , denCoeffs , "num and deno")
+
+      let  result = [];
+      if(numCoeffs.length <denCoeffs.length){
+        result = Cauer1(denCoeffs , numCoeffs);
+      }else{
+        result = Cauer1(numCoeffs, denCoeffs );
+      }
+      // console.log(Yresult , "Cauer 1 RC using Y");
       const modifiedResults = result.map((component) => ({
         ...component,
-        type : component.type === "L" ? "C" : "R"
-        // arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
+        type: numCoeffs.length >= denCoeffs.length ?  (component.type === "L" ? "C" : "R" ) : (component.type === "L" ? "R" : "C" ) ,
+        arrangement: numCoeffs.length < denCoeffs.length
+          ? (component.arrangement === 'series' ? 'parallel' : 'series')
+          : component.arrangement // keep the original arrangement if numCoeffs >= DenCoeffs
       }));
       setCauer1RC(modifiedResults);
       setFinalResult([]);

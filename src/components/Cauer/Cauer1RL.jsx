@@ -13,18 +13,50 @@ export default function Cauer1RL() {
   } = useContext(PolynomialContext);
 
   useEffect(() => {
-    if (numCoeffs && denCoeffs) {
-      const result = Cauer1(numCoeffs, denCoeffs);
+    let  result = [];
+      if(numCoeffs.length <denCoeffs.length){
+        result = Cauer1(denCoeffs , numCoeffs);
+      }else{
+        result = Cauer1(numCoeffs, denCoeffs );
+      }
+      // console.log(Yresult , "Cauer 1 RC using Y");
       const modifiedResults = result.map((component) => ({
         ...component,
-        value : component.type == "R" ? 1/component.value : component.value  ,
-        arrangement: component.arrangement === 'series' ? 'parallel' : 'series'
+        type: numCoeffs.length >= denCoeffs.length ?  (component.type === "R" ? "L" : "R" ) : (component.type === "R" ? "R" : "L" ) ,
+        arrangement: numCoeffs.length < denCoeffs.length
+          ?  component.arrangement
+          : (component.arrangement === 'series' ? 'parallel' : 'series')// keep the original arrangement if numCoeffs >= DenCoeffs
       }));
       setCauer1RL(modifiedResults);
       setFinalResult([]);
       console.log(result, "cauer1 RC");
-    }
+    
   }, [numCoeffs, denCoeffs, setFinalResult]);
+
+  // useEffect(() => {
+  //   if (numCoeffs && denCoeffs) {
+  //     console.log(numCoeffs , denCoeffs , "num and deno")
+
+  //     let  result = [];
+  //     if(numCoeffs.length <denCoeffs.length){
+  //       result = Cauer1(denCoeffs , numCoeffs);
+  //     }else{
+  //       result = Cauer1(numCoeffs, denCoeffs );
+  //     }
+  //     // console.log(Yresult , "Cauer 1 RC using Y");
+  //     const modifiedResults = result.map((component) => ({
+  //       ...component,
+  //       type: numCoeffs.length >= denCoeffs.length ?  (component.type === "L" ? "C" : "R" ) : (component.type === "L" ? "R" : "C" ) ,
+  //       arrangement: numCoeffs.length < denCoeffs.length
+  //         ? (component.arrangement === 'series' ? 'parallel' : 'series')
+  //         : component.arrangement // keep the original arrangement if numCoeffs >= DenCoeffs
+  //     }));
+  //     setCauer1RC(modifiedResults);
+  //     setFinalResult([]);
+  //     console.log(result, "cauer1 RC");
+  //     console.log(modifiedResults, "cauer1 RC");
+  //   }
+  // }, [numCoeffs, denCoeffs, setFinalResult]);
 
   
 

@@ -15,6 +15,8 @@ export default function Cauer2LC() {
   useEffect(() => {
     if (numCoeffs && denCoeffs) {
       const result = Cauer2(numCoeffs, denCoeffs);
+      
+
       const modifiedResults = result.map((component) => ({
         ...component,
         type : component.type === "L" ? "L" : "C",

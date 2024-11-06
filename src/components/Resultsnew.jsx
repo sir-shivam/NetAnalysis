@@ -66,24 +66,10 @@ export default function Results() {
       );
 
       console.log(finding);
-      addOption("Foster1LC", "Foster1LC");
-      
-      addOption("Cauer2 LC", "Cauer2LC");
-      addOption("Cauer1 LC", "Cauer1LC");
-      addOption("Foster2LC", "Foster2LC");
-      addOption("Foster1RC", "Foster1RC");
-          addOption("Foster2RL", "Foster2RL");
-          addOption("Cauer1RC", "Cauer1RC");
-          addOption("Cauer2RC", "Cauer2RC");
-          addOption("Foster1RL", "Foster1RL");
-          addOption("Foster2RC", "Foster2RC");
-          addOption("Cauer1RL", "Cauer1RL");
-          addOption("Cauer2RL", "Cauer2RL");
+    
 
 
-
-
-    if (finding.component === "LCC" ) {
+    if (finding.component === "LC" ) {
       if(parameterType === "z"){
         addOption("Foster1LC", "Foster1LC");
         addOption("Cauer1 LC", "Cauer1LC");
@@ -95,7 +81,6 @@ export default function Results() {
         addOption("Foster2LC", "Foster2LC");
       }
     } else {
-      if (finding.nearest === "pol") {
         if (parameterType === "z") {
           addOption("Foster1RC", "Foster1RC");
           addOption("Foster2RL", "Foster2RL");
@@ -107,7 +92,6 @@ export default function Results() {
           addOption("Cauer1RL", "Cauer1RL");
           addOption("Cauer2RL", "Cauer2RL");
         }
-      } else if (finding.nearest === "zero") {
         if (parameterType === "z") {
           addOption("Foster1RL", "Foster1RL");
           addOption("Foster2RC", "Foster2RC");
@@ -119,7 +103,6 @@ export default function Results() {
           addOption("Cauer1RC", "Cauer1RC");
           addOption("Cauer2RC", "Cauer2RC");
         }
-      }
     }
 
     return options;

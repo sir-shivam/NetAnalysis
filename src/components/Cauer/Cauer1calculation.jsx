@@ -1,6 +1,6 @@
 
 
-const Cauer1 = (numCoeffs , denCoeffs) => {
+const Cauer1 = (numCoeffs , denCoeffs ) => {
   
 
   
@@ -30,6 +30,7 @@ const Cauer1 = (numCoeffs , denCoeffs) => {
       // For reversed coefficients, we start division from the constant term (index 0)
       const quotient = dividend[0] / divisor[0];
       console.log("Current quotient term:", quotient);
+      
 
       // Calculate remainder by subtracting (quotient * divisor) from dividend
       const remainder = [];

@@ -61,10 +61,10 @@ const Foster2RCSynthesis = ({ terms }) => {
               {(element.type === 'capacitor' && element.value!==0)&& (
               <>
               
-              <NewCapacitor x={xPosition-40} y="200" />
-              <text x={xPosition} y="210" fontSize="12" fill="black">C={element.value.toFixed(2)} F</text>
-                <line x1={xPosition-20} y1="220" x2={xPosition-20} y2="350" stroke="black" strokeWidth="2" />
-                <line x1={xPosition-20} y1="120" x2={xPosition-20} y2="210" stroke="black" strokeWidth="2" />
+              <NewCapacitor x={xPosition+100} y="200" />
+              <text x={xPosition+55} y="210" fontSize="12" fill="black">C={element.value.toFixed(2)} F</text>
+                <line x1={xPosition+120} y1="220" x2={xPosition+120} y2="350" stroke="black" strokeWidth="2" />
+                <line x1={xPosition+120} y1="120" x2={xPosition+120} y2="210" stroke="black" strokeWidth="2" />
               
              
             </>

@@ -15,6 +15,8 @@ export default function Cauer2RC() {
   useEffect(() => {
     if (numCoeffs && denCoeffs) {
       const result = Cauer2(numCoeffs, denCoeffs);
+      const Yresult = Cauer2(denCoeffs, numCoeffs);
+      console.log(Yresult , "Cauer 2 RC using Y");
       const modifiedResults = result.map((component) => ({
         ...component,
         type : component.type === "R" ? "C" : "R",

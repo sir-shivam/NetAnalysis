@@ -227,7 +227,8 @@ const processPolynomials = (numCoeff, denCoeff) => {
                         const nearestRoot = combinedRoots.reduce((closest, current) => {
                             return Math.abs(current.root) < Math.abs(closest.root) ? current : closest;
                         });
-            
+                        console.log(numCoeffs , "num by 1")
+                        console.log(denCoeffs , "den by 1")
                         // Set findings and coefficients
                         setNumCoeffs(numCoeff);
                         setDenCoeffs(denCoeff);
@@ -299,6 +300,8 @@ const processPolynomials = (numCoeff, denCoeff) => {
             ...denRoots.map(root => ({ ...root, type: "pole" }))
         ].sort((a, b) => a.root - b.root);
 
+        console.log(combinedRoots , "all roots together ");
+
         const isAlternatingRoots = combinedRoots.every((item, index) => {
             if (index === 0) return true;
             return combinedRoots[index - 1].type !== item.type;
@@ -306,13 +309,33 @@ const processPolynomials = (numCoeff, denCoeff) => {
         if (!isAlternatingRoots) throw new Error("Circuit not feasible as poles and zeros do not alternate");
 
         // Nearest root to origin
-        const nearestRoot = combinedRoots.reduce((closest, current) => {
-            return Math.abs(current.root) < Math.abs(closest.root) ? current : closest;
-        });
+       const nearestRoot = combinedRoots.reduce((closest, current) => {
+    // Skip if the current root is 0
+    if (current.root === 0) return closest;
+
+    // If closest is 0 (meaning no non-zero roots have been selected yet), select current
+    if (closest.root === 0) return current;
+
+    // Otherwise, select the closest root to 0 among non-zero values
+    return Math.abs(current.root) < Math.abs(closest.root) ? current : closest;
+}, { root: 0 }); // Start with a default object where ro
+console.log(nearestRoot , "nearest to origin")
 
         // Set findings and coefficients
         numCoeffs = [...numCoeffs].reverse();
         denCoeffs = [...denCoeffs].reverse();
+        // if (numCoeffs.length < numRoot.length+1) {
+        //     while (numCoeffs.length < numRoot.length+1) {
+        //       numCoeffs.unshift(0); // Add 0 at the start of numCoeffs
+        //     }
+        //   }
+        //   if (denCoeffs.length < denRoot.length+1) {
+        //     while (denCoeffs.length < denRoot.length+1) {
+        //       denCoeffs.unshift(0); // Add 0 at the start of numCoeffs
+        //     }
+        //   }
+          console.log(numCoeffs , "num by 2")
+          console.log(denCoeffs , "den by 2")
         setNumCoeffs(numCoeffs);
         setDenCoeffs(denCoeffs);
         setFinding({ nearest: nearestRoot.type, component: possibleCircuit });
@@ -346,8 +369,8 @@ const processPolynomials = (numCoeff, denCoeff) => {
                    onChange={(e) => setParameterType(e.target.value)}
                    className="w-full p-2 border rounded mb-4"
                >
-                   <option value="z">Z Parameter</option>
-                   <option value="y">Y Parameter</option>
+                   <option value="z">Z(s)</option>
+                   <option value="y">Y(s)</option>
                </select>
 
                     {/* Input form type selection */}

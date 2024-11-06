@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Inductor } from './elements/Inductor';
 import { Capacitor } from './elements/Capacitor';
+import { limitAsSTendsToInfinity } from './LimitFinding';
 const FosterSynthesis1LC = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
 
   const synthesizeFoster1 = (terms) => {
     const elements = [];
+    console.log(terms , "terms in LC")
+    
+    
+
     
     terms.forEach((term) => {
       if (term.type === 'polynomial' && term.power === 1) {
@@ -15,7 +20,7 @@ const FosterSynthesis1LC = ({ terms }) => {
       } else if (term.type === 'simple_pole') {
         elements.push({
           type: 'resonant_pair',
-          L: term.coefficient / Math.pow(-term.root, 2),
+          L: term.coefficient /(-term.root),
           C: 1 / term.coefficient,
           position: 'parallel'
         });

@@ -8,7 +8,7 @@ const Foster2SynthesisLC = ({ terms }) => {
 
   const synthesizeFoster1 = (terms) => {
     const elements = [];
-    
+    console.log(terms , 'in LC 2')
     terms.forEach((term) => {
       if (term.type === 'polynomial' && term.power === 1) {
         elements.push({ type: 'capacitor', value: term.coefficient, position: 'parallel' });
@@ -53,7 +53,7 @@ const Foster2SynthesisLC = ({ terms }) => {
               <line x1={xPosition - 60} y1="120" x2={xPosition} y2="120" stroke="black" strokeWidth="2" />
               {/* Connect line to next element */}
               <line x1={xPosition + 50} y1="120" x2={xPosition + 100} y2="120" stroke="black" strokeWidth="2" />
-              <text x={xPosition+10} y="90" fontSize="12" fill="black">C={element.value.toFixed(2)}</text>
+              <text x={xPosition+10} y="90" fontSize="12" fill="black">C={element.value.toFixed(5)}</text>
             </>
             )}
 
@@ -61,13 +61,13 @@ const Foster2SynthesisLC = ({ terms }) => {
              <>
             
                 {/* Vertical line from the main line to the resonant pair */}
-                <line x1={xPosition-20} y1="120" x2={xPosition-20} y2="180" stroke="black" strokeWidth="2" />
+                <line x1={xPosition+110} y1="120" x2={xPosition+110} y2="180" stroke="black" strokeWidth="2" />
 
                 {/* Inductor part of resonant pair, placed lower */}
-                <NewInductor x={xPosition-30} y="180" />
+                <NewInductor x={xPosition+100} y="180" />
                 
                 {/* Connecting line between inductor and capacitor in series */}
-                <line x1={xPosition-20} y1="270" x2={xPosition-20 } y2="300" stroke="black" strokeWidth="2" />
+                <line x1={xPosition+110} y1="270" x2={xPosition+110 } y2="300" stroke="black" strokeWidth="2" />
                 <text x={xPosition} y="200" fontSize="12" fill="black">L={element.value.toFixed(2)}H</text>
            </>
             )}
@@ -86,7 +86,7 @@ const Foster2SynthesisLC = ({ terms }) => {
                 
                 {/* Capacitor part of resonant pair */}
                 <NewCapacitor x={xPosition} y="230" />
-                <text x={xPosition+20} y="230" fontSize="12" fill="black">C={element.C.toFixed(2)}F</text>
+                <text x={xPosition+20} y="230" fontSize="12" fill="black">C={element.C.toFixed(5)}F</text>
                 <line x1={xPosition+20} y1="260" x2={xPosition+20} y2="350" stroke="black" strokeWidth="2" />
                 {/* Horizontal lines for parallel connection */}
                 <line x1={xPosition - 60} y1="120" x2={xPosition +100} y2="120" stroke="black" strokeWidth="2" />
