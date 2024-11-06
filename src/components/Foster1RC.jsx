@@ -8,7 +8,7 @@ import { Capacitor } from './elements/Capacitor';
 import PolynomialContext from '../context/PolynomialContext';
 const Foster1RCSynthesis = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
-  const {finalResult,setFinalResult} = useContext(PolynomialContext);
+  const {finalResult,setFinalResult , numCoeffs,denCoeffs,parameterType, } = useContext(PolynomialContext);
   
 
   const synthesizeFoster1 = (terms) => {
@@ -44,7 +44,8 @@ const Foster1RCSynthesis = ({ terms }) => {
       
       console.log(synthesizedElements );
     }
-  }, [terms]);
+  }, [terms , numCoeffs , denCoeffs , parameterType]);
+  
 
   return (
     <div>

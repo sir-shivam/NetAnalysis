@@ -9,7 +9,8 @@ export default function Cauer1RL() {
   const {
     numCoeffs,
     denCoeffs,
-    setFinalResult
+    setFinalResult,
+    parameterType
   } = useContext(PolynomialContext);
 
   useEffect(() => {
@@ -31,32 +32,8 @@ export default function Cauer1RL() {
       setFinalResult([]);
       console.log(result, "cauer1 RC");
     
-  }, [numCoeffs, denCoeffs, setFinalResult]);
+  }, [numCoeffs, denCoeffs, setFinalResult, parameterType]);
 
-  // useEffect(() => {
-  //   if (numCoeffs && denCoeffs) {
-  //     console.log(numCoeffs , denCoeffs , "num and deno")
-
-  //     let  result = [];
-  //     if(numCoeffs.length <denCoeffs.length){
-  //       result = Cauer1(denCoeffs , numCoeffs);
-  //     }else{
-  //       result = Cauer1(numCoeffs, denCoeffs );
-  //     }
-  //     // console.log(Yresult , "Cauer 1 RC using Y");
-  //     const modifiedResults = result.map((component) => ({
-  //       ...component,
-  //       type: numCoeffs.length >= denCoeffs.length ?  (component.type === "L" ? "C" : "R" ) : (component.type === "L" ? "R" : "C" ) ,
-  //       arrangement: numCoeffs.length < denCoeffs.length
-  //         ? (component.arrangement === 'series' ? 'parallel' : 'series')
-  //         : component.arrangement // keep the original arrangement if numCoeffs >= DenCoeffs
-  //     }));
-  //     setCauer1RC(modifiedResults);
-  //     setFinalResult([]);
-  //     console.log(result, "cauer1 RC");
-  //     console.log(modifiedResults, "cauer1 RC");
-  //   }
-  // }, [numCoeffs, denCoeffs, setFinalResult]);
 
   
 
@@ -94,7 +71,7 @@ export default function Cauer1RL() {
             
           </div>
           <div>
-              <h2>Cauer 1 RL Circuit </h2>
+              <h2 className='text-center'>Cauer 1 RL Circuit </h2>
               {renderCircuit()}
             </div>
         </div>

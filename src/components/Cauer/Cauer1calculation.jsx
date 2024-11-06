@@ -113,7 +113,6 @@ const Cauer1 = (numCoeffs , denCoeffs ) => {
 
   const result = calculateContinuedFraction1(numC1, denC1);
 
-
   return result ;
 };
 

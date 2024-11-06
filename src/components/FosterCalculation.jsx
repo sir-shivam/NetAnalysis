@@ -15,15 +15,7 @@ const FosterCalculation = (numCoeffs, denCoeffs, foundRoots) => {
   const calculatePartialFractions = (numCoeffs, denCoeffs, currentRoots) => {
       const terms = [];
       
-      // Handle polynomial division
-      // if (numCoeffs.length >= denCoeffs.length) {
-      //   const quotient = numCoeffs[numCoeffs.length - 1] / denCoeffs[denCoeffs.length - 1];
-      //   terms.push({
-      //     type: 'polynomial',
-      //     coefficient: quotient,
-      //     power: numCoeffs.length - denCoeffs.length
-      //   });
-      // }
+     // divison
       if (numCoeffs.length >= denCoeffs.length) {
         const quotient = numCoeffs[numCoeffs.length - 1] / denCoeffs[denCoeffs.length - 1];
         const valueatzero= limitAsSTendsToZero([...numCoeffs].reverse(),[...denCoeffs].reverse());

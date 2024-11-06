@@ -152,14 +152,14 @@ class Capacitor extends Component {
 
 const CircuitDiagram = ({cauerResult}) => {
   const canvasRef = useRef(null);
-  const CANVAS_WIDTH = 500;
+  const COMPONENT_WIDTH = 100;
   const CANVAS_HEIGHT = 400;
-  const START_X = 50;
+  const START_X = 200;
   const START_Y = 100;
   const VERTICAL_GAP = 150;
 
-  const drawCircuit = async (ctx, components) => {
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  const drawCircuit = async (ctx, components , canvasWidth) => {
+    ctx.clearRect(0, 0, canvasWidth, CANVAS_HEIGHT);
 
     const pointA = { x: START_X, y: START_Y };
     const pointB = { x: START_X, y: START_Y + VERTICAL_GAP };
@@ -225,16 +225,19 @@ const CircuitDiagram = ({cauerResult}) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    drawCircuit(ctx, cauerResult);
-  }, [cauerResult]);
 
+    // Adjust the width based on the length of cauerResult array
+    const canvasWidth = Math.max(500, START_X + 100 + cauerResult.length * COMPONENT_WIDTH);
+    canvas.width = canvasWidth; // Update canvas width dynamically
+
+    drawCircuit(ctx, cauerResult, canvasWidth);
+  }, [cauerResult]);
   return (
-    <div className=" max-w-4xl mx-auto">
-      <canvas 
+    <div className=" max-w-4xl mx-auto overflow-x-auto">
+       <canvas 
         ref={canvasRef} 
-        width={CANVAS_WIDTH} 
         height={CANVAS_HEIGHT}
-        className="border border-gray-300 " 
+        className="border border-gray-300" 
       />
     </div>
   );

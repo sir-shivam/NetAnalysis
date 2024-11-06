@@ -5,7 +5,7 @@ import PolynomialContext from '../context/PolynomialContext';
 
 const Foster1RLSynthesis = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
-  const {finalResult,setFinalResult} = useContext(PolynomialContext);
+const {finalResult,setFinalResult , numCoeffs,denCoeffs,parameterType, } = useContext(PolynomialContext);
 
   const synthesizeFoster2 = (terms) => {
     const elements = [];
@@ -40,7 +40,7 @@ const Foster1RLSynthesis = ({ terms }) => {
       setNetworkElements(synthesizedElements);
       setFinalResult(synthesizedElements);
     }
-  }, [terms]);
+  }, [terms , numCoeffs , denCoeffs , parameterType]);
 
   return (
     <div className="w-full max-w-2xl  rounded-lg p-6 shadow-sm">

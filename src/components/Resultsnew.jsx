@@ -162,7 +162,7 @@ export default function Results() {
 
      
 
-      <div className="overflow-y-auto h-[60.8vh] bg-white rounded-xl ">
+      <div className="overflow-y-auto h-[60vh] bg-white rounded-xl ">
         
         {renderCircuit()}
       </div>

@@ -9,7 +9,8 @@ export default function Cauer2RC() {
   const {
     numCoeffs,
     denCoeffs,
-    setFinalResult
+    setFinalResult,
+    parameterType
   } = useContext(PolynomialContext);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function Cauer2RC() {
       console.log(result, "cauer1 RC");
       console.log(modifiedResults, "cauer1 RC");
     }
-  }, [numCoeffs, denCoeffs, setFinalResult]);
+  }, [numCoeffs, denCoeffs, setFinalResult , parameterType]);
 
   const renderCircuit = () => {
     if (Cauer2RC.length > 0) {
@@ -64,7 +65,7 @@ export default function Cauer2RC() {
             
           </div>
           <div>
-              <h2>Cauer 2 RC Circuit </h2>
+              <h2 className='text-center'>Cauer 2 RC Circuit </h2>
               {renderCircuit()}
             </div>
         </div>

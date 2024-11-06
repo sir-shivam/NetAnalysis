@@ -1,10 +1,4 @@
 
-
-
-
-let smethod = false;
-
-
 class Complex {
     constructor(real, imag) {
       this.real = real;

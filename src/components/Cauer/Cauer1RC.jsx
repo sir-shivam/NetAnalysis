@@ -36,7 +36,7 @@ export default function Cauer1RC() {
       console.log(result, "cauer1 RC");
       console.log(modifiedResults, "cauer1 RC");
     }
-  }, [numCoeffs, denCoeffs, setFinalResult]);
+  }, [numCoeffs, denCoeffs, setFinalResult ,parameterType]);
 
   const renderCircuit = () => {
     if (cauer1RC.length > 0) {
@@ -71,7 +71,7 @@ export default function Cauer1RC() {
             )}
           </div>
             <div>
-              <h2>Cauer 1 RC Circuit </h2>
+              <h2 className='text-center'>Cauer 1 RC Circuit </h2>
               {renderCircuit()}
             </div>
         </div>

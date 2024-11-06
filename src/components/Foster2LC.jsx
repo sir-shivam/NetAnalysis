@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NewCapacitor } from './elements/NewCapacitor';
 import { NewInductor } from './elements/NewInductor';
 import { Capacitor } from './elements/Capacitor';
 import { Inductor } from './elements/Inductor';
+import PolynomialContext from '../context/PolynomialContext';
 const Foster2SynthesisLC = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
- 
+const {finalResult,setFinalResult , numCoeffs,denCoeffs,parameterType, } = useContext(PolynomialContext);
+
   const synthesizeFoster1 = (terms) => {
     const elements = [];
     console.log(terms , 'in LC 2')
@@ -34,7 +36,7 @@ const Foster2SynthesisLC = ({ terms }) => {
       const synthesizedElements = synthesizeFoster1(terms);
       setNetworkElements(synthesizedElements);
     }
-  }, [terms]);
+  }, [terms , numCoeffs , denCoeffs , parameterType]);
 
   return (
     <div className="w-full max-w-2xl  rounded-lg p-6 shadow-sm">

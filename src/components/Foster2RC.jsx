@@ -10,7 +10,8 @@ import { NewResistor } from './elements/NewResistor';
 import PolynomialContext from '../context/PolynomialContext';
 const Foster2RCSynthesis = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
-  const {finalResult,setFinalResult} = useContext(PolynomialContext);
+
+const {finalResult,setFinalResult , numCoeffs,denCoeffs,parameterType, } = useContext(PolynomialContext);
   
 
   const synthesizeFoster1 = (terms) => {
@@ -46,7 +47,7 @@ const Foster2RCSynthesis = ({ terms }) => {
       setFinalResult(synthesizedElements);
       console.log(synthesizedElements );
     }
-  }, [terms]);
+  }, [terms , numCoeffs , denCoeffs , parameterType]);
 
   return (
     <div>

@@ -26,19 +26,7 @@ function PolynomialState({ children }) {
   const [parameterType, setParameterType] = useState("z");
   const [numRoot,setNumRoot]= useState([]);
   const [denRoot, setDenRoot]= useState([]);
-    const processCoefficients = () => {
-    // const numCoeffs = parseCoefficients(numeratorCoeffs);
-    // const denCoeffs = parseCoefficients(denominatorCoeffs);
-
-    // if (!numCoeffs || !denCoeffs) {
-    //   return false;
-    // }
-
-    // return {
-    //   numerator: numCoeffs,
-    //   denominator: denCoeffs
-    // };
-  };
+    
   
 
   return (
@@ -82,8 +70,7 @@ function PolynomialState({ children }) {
         numRoot , setNumRoot,
         denRoot, setDenRoot,
         
-        // Helper functions
-        // processCoefficients
+       
       }}
     >
       {children}
@@ -95,14 +82,3 @@ export default PolynomialState;
 
 
 
-// Helper function to parse coefficients string into array
-//   const parseCoefficients = (coeffString) => {
-//     try {
-//       return coeffString.split(',').map(num => parseFloat(num.trim()));
-//     } catch (err) {
-//       setError("Invalid coefficient format. Please use comma-separated numbers.");
-//       return null;
-//     }
-//   };
-
-//   // Function to validate and process coefficients

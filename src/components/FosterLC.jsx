@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Inductor } from './elements/Inductor';
 import { Capacitor } from './elements/Capacitor';
 import { limitAsSTendsToInfinity } from './LimitFinding';
+import PolynomialContext from '../context/PolynomialContext';
 const FosterSynthesis1LC = ({ terms }) => {
   const [networkElements, setNetworkElements] = useState([]);
+const {finalResult,setFinalResult , numCoeffs,denCoeffs,parameterType, } = useContext(PolynomialContext);
 
   const synthesizeFoster1 = (terms) => {
     const elements = [];
@@ -37,7 +39,7 @@ const FosterSynthesis1LC = ({ terms }) => {
       const synthesizedElements = synthesizeFoster1(terms);
       setNetworkElements(synthesizedElements);
     }
-  }, [terms]);
+  }, [terms , numCoeffs , denCoeffs , parameterType]);
 
   return (
     <div className="w-full max-w-2xl  rounded-lg p-6 ">

@@ -1,17 +1,11 @@
 export function limitAsSTendsToZero(numCoeffs, denCoeffs) {
-    // Ensure both arrays are not empty
-    if (numCoeffs.length === 0 || denCoeffs.length === 0) {
-      throw new Error("Numerator or denominator coefficients array is empty");
-    }
+   
   
     // Get the constant (lowest-degree) terms
     const numConstantTerm = numCoeffs[numCoeffs.length - 1];
     const denConstantTerm = denCoeffs[denCoeffs.length - 1];
   
-    // If the denominator's constant term is 0, the limit does not exist
-    // if (denConstantTerm === 0) {
-    //   throw new Error("Denominator constant term is zero, limit as s -> 0 does not exist");
-    // }
+    
    let value =  numConstantTerm / denConstantTerm
     if(!(isNaN(value))){
       return value;

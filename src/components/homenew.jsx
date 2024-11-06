@@ -33,6 +33,14 @@ export default function Home({ onAnalyze }) {
   }, [numerator, denominator, inputType, formType]);
   let possibleCircuit = "R";
 
+   // Reset function to clear data on new input
+   const resetData = () => {
+    setNumCoeffs([]);
+    setDenCoeffs([]);
+    setFinding(null);
+    setError("");
+  };
+
   // Parsing function
   const parsePolynomial = (input) => {
     const terms = input.split("+").map((term) => term.trim());
@@ -167,9 +175,18 @@ export default function Home({ onAnalyze }) {
   // Conditional processing based on form type (placeholders for now)
   const handleCalculate = () => {
     setIsCalculating(true);
+    resetData();
+
+    
 
     try {
+      if(!numerator || !denominator ){
+        throw new Error(
+          "Please Give Valid Input"
+        );
+      }
       if (formType === "1") {
+        
         // Handle form type 1: as^2 + bs + c...
 
         try {
@@ -391,10 +408,14 @@ export default function Home({ onAnalyze }) {
             className="w-full p-2 border rounded mb-4"
           >
             <option value="1">Form: as^2 + bs + c...</option>
-            <option value="2">Form: k(s+1)(s+3)...</option>
+            <option value="2">Form: k(s+1)(s+3)...    </option>
             <option value="3">Form: k(s^2+2)(s^2+3)...</option>
             {/* <option value="4">Form: 1, 2, 3...</option> */}
           </select>
+          <p className="text-green-500 text-sm mt-[-10px]">
+  Hint: Please Give k = 1 as default value of k, eg.. (s+a)(s+b).. =
+  <span className="text-blue-600"> 1, a, b...</span>
+</p>
 
           {/* Numerator input */}
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -418,7 +439,9 @@ export default function Home({ onAnalyze }) {
             type="text"
             value={denominator}
             onChange={(e) => setDenominator(e.target.value)}
-            placeholder="Enter denominator"
+            placeholder={`Enter Denominator ${
+              formType === "1" ? "as^2 + bs + c..." : "k, r1, r2, ..."
+            }`}
             className="w-full p-4 border rounded mb-4"
           />
 
