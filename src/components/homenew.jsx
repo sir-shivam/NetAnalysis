@@ -33,8 +33,8 @@ export default function Home({ onAnalyze }) {
   }, [numerator, denominator, inputType, formType]);
   let possibleCircuit = "R";
 
-   // Reset function to clear data on new input
-   const resetData = () => {
+  // Reset function to clear data on new input
+  const resetData = () => {
     setNumCoeffs([]);
     setDenCoeffs([]);
     setFinding(null);
@@ -177,16 +177,11 @@ export default function Home({ onAnalyze }) {
     setIsCalculating(true);
     resetData();
 
-    
-
     try {
-      if(!numerator || !denominator ){
-        throw new Error(
-          "Please Give Valid Input"
-        );
+      if (!numerator || !denominator) {
+        throw new Error("Please Give Valid Input");
       }
       if (formType === "1") {
-        
         // Handle form type 1: as^2 + bs + c...
 
         try {
@@ -407,15 +402,15 @@ export default function Home({ onAnalyze }) {
             onChange={(e) => setFormType(e.target.value)}
             className="w-full p-2 border rounded mb-4"
           >
-            <option value="1">Form: as^2 + bs + c...</option>
-            <option value="2">Form: k(s+1)(s+3)...    </option>
+            <option value="1">Form: as^2 + bs^1 + c...</option>
+            <option value="2">Form: k(s+1)(s+3)... </option>
             <option value="3">Form: k(s^2+2)(s^2+3)...</option>
             {/* <option value="4">Form: 1, 2, 3...</option> */}
           </select>
           <p className="text-green-500 text-sm mt-[-10px]">
-  Hint: Please Give k = 1 as default value of k, eg.. (s+a)(s+b).. =
-  <span className="text-blue-600"> 1, a, b...</span>
-</p>
+            Hint: Please Give k = 1 as default value of k, eg.. (s+a)(s+b).. =
+            <span className="text-blue-600"> 1, a, b...</span>
+          </p>
 
           {/* Numerator input */}
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -426,7 +421,7 @@ export default function Home({ onAnalyze }) {
             value={numerator}
             onChange={(e) => setNumerator(e.target.value)}
             placeholder={`Enter numerator ${
-              formType === "1" ? "as^2 + bs + c..." : "k, r1, r2, ..."
+              formType === "1" ? "as^2 + bs^1 + c..." : "k, r1, r2, ..."
             }`}
             className="w-full p-4 border rounded mb-4"
           />
@@ -440,7 +435,7 @@ export default function Home({ onAnalyze }) {
             value={denominator}
             onChange={(e) => setDenominator(e.target.value)}
             placeholder={`Enter Denominator ${
-              formType === "1" ? "as^2 + bs + c..." : "k, r1, r2, ..."
+              formType === "1" ? "as^2 + bs^1 + c..." : "k, r1, r2, ..."
             }`}
             className="w-full p-4 border rounded mb-4"
           />
@@ -453,7 +448,7 @@ export default function Home({ onAnalyze }) {
               isCalculating ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
             } rounded transition duration-300`}
           >
-            {isCalculating ? "Calculating..." : "Analyze Circuit"}
+            {isCalculating ? "Calculating..." : "Synthesize Circuit"}
           </button>
 
           {error && <p className="text-red-600 mt-4">{error}</p>}

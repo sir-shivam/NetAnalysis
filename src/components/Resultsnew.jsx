@@ -150,7 +150,7 @@ export default function Results() {
 
   return (
     <div className="p-6 space-y-4 bg-blue-400">
-      <h2 className="text-2xl font-semibold">Analysis Results</h2>
+      <h2 className="text-2xl font-semibold">Synthesis Results</h2>
       <p className="text-gray-200">Circuit analysis results and synthesis options</p>
       
       <div>

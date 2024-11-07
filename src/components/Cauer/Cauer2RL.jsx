@@ -40,7 +40,7 @@ export default function Cauer2RL() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-center">
-          Cauer 2 Analysis
+          Cauer 2 Synthesis
         </h1>
         <div className="flex flex-col justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-md w-[60%] ">
