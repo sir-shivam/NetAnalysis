@@ -10,6 +10,7 @@ export default function Home({ onAnalyze }) {
   const [inputType, setInputType] = useState("f"); // F(s), Z(s), or Y(s)
   const [formType, setFormType] = useState("2");
   const [isCalculating, setIsCalculating] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const {
     numCoeffs,
@@ -83,7 +84,6 @@ export default function Home({ onAnalyze }) {
     return roots;
   };
 
-  // Function to generate polynomial coefficients from a list of roots
   // Function to generate polynomial coefficients from a list of roots and apply a constant multiplier
   const generateCoefficients = (roots, multiplier = 1) => {
     // Start with the initial polynomial as [1], representing "1 * s^0"
@@ -368,11 +368,17 @@ export default function Home({ onAnalyze }) {
       setIsCalculating(false);
     }
   };
+  // Function to handle exchange of numerator and denominator
+  const handleExchange = () => {
+    const temp = numerator;
+    setNumerator(denominator);
+    setDenominator(temp);
+  };
 
   return (
     <div className="flex-col justify-center items-center bg-blue-500 min-h-screen">
       <h1 className="text-4xl text-center pt-5 text-white font-semibold">
-        Network Analysis Circuit Analyzer
+        Network Analysis Circuit Synthesizer
       </h1>
       <div className="flex justify-center items-center pt-16">
         <div className="bg-white p-10 shadow-md rounded-lg w-full max-w-2xl">
@@ -416,6 +422,7 @@ export default function Home({ onAnalyze }) {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Numerator
           </label>
+          
           <input
             type="text"
             value={numerator}
@@ -425,6 +432,22 @@ export default function Home({ onAnalyze }) {
             }`}
             className="w-full p-4 border rounded mb-4"
           />
+          <button
+              onClick={handleExchange}
+              onMouseEnter={() => setShowTooltip(true)}  
+              onMouseLeave={() => setShowTooltip(false)} 
+              className=" px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 relative ml-[45%]"
+            >
+              ↕️
+              
+              {/* Tooltip */}
+              {showTooltip && (
+                <div className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 z-10">
+                  Exchange
+                </div>
+              )}
+            </button>
+            
 
           {/* Denominator input */}
           <label className="block text-sm font-medium text-gray-700 mb-2">
